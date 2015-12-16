@@ -11,9 +11,7 @@ public class DefaultRobot extends Robot {
 
     @Override
     public void doStep() {
-        for (Target target : targets) {
-            if (target.contains(x, y)) targetDone();
-        }
+        targets.stream().filter(target -> target.contains(x, y)).forEach(target -> targetDone());
 
         double dist = Double.MAX_VALUE;
         double angle = 0f;
