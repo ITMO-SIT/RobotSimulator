@@ -2,28 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2ea9789a-2294-4796-8fe8-36b65742e9af" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/simulator/Field/DefaultField.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/simulator/Field/Field.java" afterPath="$PROJECT_DIR$/src/simulator/configuration/Field.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/project-template.xml" afterPath="$PROJECT_DIR$/.idea/project-template.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/RobotSimulator/simulator/Field/DefaultField.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/RobotSimulator/simulator/Field/Field.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/RobotSimulator/simulator/Simulator.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/RobotSimulator/simulator/configuration/Configuration.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/RobotSimulator/simulator/robot/DefaultRobot.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/RobotSimulator/simulator/robot/Robot.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/RobotSimulator/simulator/simulation/DefaultSimulation.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/RobotSimulator/simulator/simulation/Simulation.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/RobotSimulator/simulator/target/DefaultTarget.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/RobotSimulator/simulator/target/Target.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RobotSimulator.iml" afterPath="$PROJECT_DIR$/RobotSimulator.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/configuration.txt" afterPath="$PROJECT_DIR$/configuration.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulator/Simulator.java" afterPath="$PROJECT_DIR$/src/simulator/Simulator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulator/configuration/Configuration.java" afterPath="$PROJECT_DIR$/src/simulator/configuration/Configuration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulator/robot/DefaultRobot.java" afterPath="$PROJECT_DIR$/src/simulator/robot/DefaultRobot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulator/robot/Robot.java" afterPath="$PROJECT_DIR$/src/simulator/robot/Robot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulator/simulation/DefaultSimulation.java" afterPath="$PROJECT_DIR$/src/simulator/simulation/DefaultSimulation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulator/simulation/Simulation.java" afterPath="$PROJECT_DIR$/src/simulator/simulation/Simulation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulator/target/DefaultTarget.java" afterPath="$PROJECT_DIR$/src/simulator/target/DefaultTarget.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulator/target/Target.java" afterPath="$PROJECT_DIR$/src/simulator/target/Target.java" />
     </list>
     <ignored path="RobotSimulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -260,6 +249,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="robot" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RobotSimulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RobotSimulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="field" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -572,7 +583,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450205344322</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Дебагг">
+      <created>1450287737854</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1450287737854</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -618,8 +635,11 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Главный класс Simulator" />
-    <option name="LAST_COMMIT_MESSAGE" value="Главный класс Simulator" />
+    <MESSAGE value="Дебагг" />
+    <option name="LAST_COMMIT_MESSAGE" value="Дебагг" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -716,7 +736,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/simulator/DefaultField.java">
+    <entry file="file://$PROJECT_DIR$/src/simulator/field/DefaultField.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
@@ -724,7 +744,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/simulator/Field.java">
+    <entry file="file://$PROJECT_DIR$/src/simulator/field/Field.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14026402">
           <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
