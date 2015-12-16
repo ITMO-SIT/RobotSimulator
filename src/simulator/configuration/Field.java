@@ -1,4 +1,4 @@
-package simulator.Field;
+package simulator.configuration;
 
 import java.util.ArrayList;
 
