@@ -4,5 +4,5 @@ public interface Simulation {
 
     void execute();
     void stop();
-    void nextIteration();
+    boolean nextIteration();
 }

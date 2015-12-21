@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class DefaultSimulation implements Simulation {
 
     private ArrayList<Robot> robots;
+    private int count;
 
     @Override
     public void execute() {
@@ -17,20 +18,43 @@ public class DefaultSimulation implements Simulation {
         Configuration conf = Configuration.getInstance();
         robots = conf.getRobots();
 
-        Target target = conf.newTargetInstance();
+        //---------------------------------------//
+        Target target;
+        target = conf.newTargetInstance();
         target.setX(10);
         target.setY(10);
-        target.setSize(10);
+        target.setSize(20);
 
-        Robot robot = conf.newRobotInstance();
+        target = conf.newTargetInstance();
+        target.setX(10);
+        target.setY(190);
+        target.setSize(20);
+
+        target = conf.newTargetInstance();
+        target.setX(150);
+        target.setY(190);
+        target.setSize(20);
+
+        target = conf.newTargetInstance();
+        target.setX(125);
+        target.setY(30);
+        target.setSize(20);
+        //---------------------------------------//
+        Robot robot;
+        robot = conf.newRobotInstance();
         robot.setX(90);
+        robot.setY(190);
+        robot.setSpeed(5);
+        conf.getTargets().forEach(robot::addTarget);
+
+        robot = conf.newRobotInstance();
+        robot.setX(100);
         robot.setY(90);
         robot.setSpeed(5);
-        robot.addTarget(target);
+        conf.getTargets().forEach(robot::addTarget);
+        //---------------------------------------//
 
-        for (int i = 0; i < 25; i++)
-            nextIteration();
-        stop();
+        count = 0;
     }
 
     @Override
@@ -39,7 +63,11 @@ public class DefaultSimulation implements Simulation {
     }
 
     @Override
-    public void nextIteration() {
-        robots.forEach(Robot::doStep);
+    public boolean nextIteration() {
+        if (count++ < 100) {
+            robots.forEach(Robot::doStep);
+            return true;
+        }
+        return false;
     }
 }
