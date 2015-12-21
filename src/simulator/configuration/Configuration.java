@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 
 public class Configuration {
 
@@ -22,6 +23,11 @@ public class Configuration {
     private Constructor constructorRobot;
     private Constructor constructorTarget;
     private Constructor constructorField;
+
+    private ArrayList<Robot>  robots;
+    private ArrayList<Target> targets;
+    private Simulation  simulation;
+    private Field       field;
 
     static public Configuration getInstance() {
         if (instance == null)
@@ -36,10 +42,12 @@ public class Configuration {
         constructorTarget = null;
         constructorField  = null;
         instance = this;
+        robots   = new ArrayList<>();
+        targets  = new ArrayList<>();
     }
 
     public Configuration(File file) {
-        instance = this;
+        this();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             constructorSimulation = Class.forName(reader.readLine()).getConstructor();
@@ -55,42 +63,54 @@ public class Configuration {
 
     public Simulation newSimulationInstance() {
         try {
-            return (Simulation) constructorSimulation.newInstance();
+            return simulation = (Simulation) constructorSimulation.newInstance();
         } catch (Exception e) {
             System.err.println("Ошибка создания симуляции");
             e.printStackTrace();
-            return new DefaultSimulation();
+            return simulation = new DefaultSimulation();
         }
     }
 
     public Robot newRobotInstance() {
+        Robot robot;
         try {
-            return (Robot) constructorRobot.newInstance();
+            robot = (Robot) constructorRobot.newInstance();
         } catch (Exception e) {
             System.err.println("Ошибка создания робота");
             e.printStackTrace();
-            return new DefaultRobot();
+            robot = new DefaultRobot();
         }
+        robots.add(robot);
+        return robot;
     }
 
     public Target newTargetInstance() {
+        Target target;
         try {
-            return (Target) constructorTarget.newInstance();
+            target = (Target) constructorTarget.newInstance();
         } catch (Exception e) {
             System.err.println("Ошибка создания цели");
             e.printStackTrace();
-            return new DefaultTarget();
+            target = new DefaultTarget();
         }
+        targets.add(target);
+        return target;
     }
 
     public Field newFieldInstance() {
         try {
-            return (Field) constructorField.newInstance();
+            return field = (Field) constructorField.newInstance();
         } catch (Exception e) {
             System.err.println("Ошибка создания поля");
             e.printStackTrace();
-            return new DefaultField();
+            return field = new DefaultField();
         }
     }
 
+    // ------- getter region start -------//
+    public Field      getField()      {return field;}
+    public Simulation getSimulation() {return simulation;}
+    public ArrayList<Target> getTargets() {return targets;}
+    public ArrayList<Robot>  getRobots()  {return robots;}
+    // ------- getter region end   -------//
 }

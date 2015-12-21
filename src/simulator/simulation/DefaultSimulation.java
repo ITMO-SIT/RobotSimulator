@@ -8,15 +8,15 @@ import java.util.ArrayList;
 
 public class DefaultSimulation implements Simulation {
 
-    private ArrayList<Robot> robots = new ArrayList<>();
+    private ArrayList<Robot> robots;
 
     @Override
     public void execute() {
         System.out.println("Начало симуляции");
 
-        robots = new ArrayList<>();
-
         Configuration conf = Configuration.getInstance();
+        robots = conf.getRobots();
+
         Target target = conf.newTargetInstance();
         target.setX(10);
         target.setY(10);
@@ -27,7 +27,6 @@ public class DefaultSimulation implements Simulation {
         robot.setY(90);
         robot.setSpeed(5);
         robot.addTarget(target);
-        robots.add(robot);
 
         for (int i = 0; i < 25; i++)
             nextIteration();
