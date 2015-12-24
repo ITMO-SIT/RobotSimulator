@@ -6,7 +6,7 @@ import simulator.target.Target;
 
 import java.util.ArrayList;
 
-public class DefaultSimulation implements Simulation {
+public class DefaultSimulation extends Simulation {
 
     private ArrayList<Robot> robots;
     private int count;
@@ -16,6 +16,8 @@ public class DefaultSimulation implements Simulation {
         System.out.println("Начало симуляции");
 
         Configuration conf = Configuration.getInstance();
+        conf.resetRobots();
+        conf.resetTargets();
         robots = conf.getRobots();
 
         //---------------------------------------//
@@ -48,6 +50,18 @@ public class DefaultSimulation implements Simulation {
         conf.getTargets().forEach(robot::addTarget);
 
         robot = conf.newRobotInstance();
+        robot.setX(70);
+        robot.setY(90);
+        robot.setSpeed(5);
+        conf.getTargets().forEach(robot::addTarget);
+
+        robot = conf.newRobotInstance();
+        robot.setX(50);
+        robot.setY(90);
+        robot.setSpeed(5);
+        conf.getTargets().forEach(robot::addTarget);
+
+        robot = conf.newRobotInstance();
         robot.setX(100);
         robot.setY(90);
         robot.setSpeed(5);
@@ -55,15 +69,28 @@ public class DefaultSimulation implements Simulation {
         //---------------------------------------//
 
         count = 0;
+        isActive = true;
     }
 
     @Override
     public void stop() {
+        count = 100;
         System.out.println("конец симуляции");
     }
 
     @Override
+    public void continueSimulation() {
+        isActive = true;
+    }
+
+    @Override
+    public void pause() {
+        isActive = false;
+    }
+
+    @Override
     public boolean nextIteration() {
+        if (!isActive) return false;
         if (count++ < 100) {
             robots.forEach(Robot::doStep);
             return true;

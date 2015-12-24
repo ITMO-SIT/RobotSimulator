@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class Configuration {
 
-    private static Configuration instance = null;
+    private static final Configuration instance = new Configuration();
 
     private Constructor constructorSimulation;
     private Constructor constructorRobot;
@@ -30,26 +30,14 @@ public class Configuration {
     private Field       field;
 
     static public Configuration getInstance() {
-        if (instance == null)
-            return new Configuration();
-        else
             return instance;
     }
 
-    public Configuration() {
-        constructorSimulation = null;
-        constructorRobot  = null;
-        constructorTarget = null;
-        constructorField  = null;
-        instance = this;
+    private Configuration() {
         robots   = new ArrayList<>();
         targets  = new ArrayList<>();
-    }
-
-    public Configuration(File file) {
-        this();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
+            BufferedReader reader = new BufferedReader(new FileReader(new File("configuration.txt")));
             constructorSimulation = Class.forName(reader.readLine()).getConstructor();
             constructorRobot  = Class.forName(reader.readLine()).getConstructor();
             constructorTarget = Class.forName(reader.readLine()).getConstructor();
@@ -58,7 +46,6 @@ public class Configuration {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public Simulation newSimulationInstance() {
@@ -106,6 +93,10 @@ public class Configuration {
             return field = new DefaultField();
         }
     }
+
+
+    public void resetRobots()  {robots.clear();}
+    public void resetTargets() {targets.clear();}
 
     // ------- getter region start -------//
     public Field      getField()      {return field;}

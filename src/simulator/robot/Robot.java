@@ -23,7 +23,6 @@ abstract public class Robot {
 
     public void addTarget(Target newTarget) {
         if (targets == null) targets = new ArrayList<>();
-        System.out.println("add target");
         targets.add(newTarget);
     }
 
