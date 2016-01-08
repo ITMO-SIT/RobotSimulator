@@ -6,7 +6,7 @@ abstract public class Target {
     protected double x, y;
     protected double size;
 
-    public void draw(Graphics2D g) {
+    public void draw(Graphics g) {
         g.setColor(new Color(250, 50, 50, 150));
         g.fillRect((int)x, (int)y, (int)size, (int)size);
     }

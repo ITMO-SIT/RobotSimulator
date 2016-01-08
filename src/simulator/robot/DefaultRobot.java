@@ -36,9 +36,4 @@ public class DefaultRobot extends Robot {
         x -= Math.cos(angle) * speed;
         y -= Math.sin(angle) * speed;
     }
-
-    @Override
-    public void whoNear() {
-        // на самом деле ты одинок.
-    }
 }

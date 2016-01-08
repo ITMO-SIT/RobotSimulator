@@ -1,54 +1,58 @@
 package simulator.gui;
 
-import simulator.configuration.Configuration;
+import simulator.simulation.Simulation;
+import simulator.simulation.SimulationThread;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame {
 
-    private SimulationThread simulationThread;
+    private Simulation currentSimulation;
 
     public MainFrame() {
-        setSize(new Dimension(500, 500));
+        setSize(new Dimension(1000, 700));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         setLayout(new BorderLayout());
 
-        JButton btn_execute  = new JButton("Execute");
-        JButton btn_stop     = new JButton("Stop");
-        JButton btn_continue = new JButton("Continue");
-        JButton btn_pause    = new JButton("Pause");
-        Canvas canvas = new Canvas();
+        JButton btn_start   = new JButton("Start");
+        JButton btn_pause   = new JButton("Pause");
+        JButton btn_restart = new JButton("restart");
+        final SimulationList simList = new SimulationList();
+        final RenderingField canvas = new RenderingField();
 
-        btn_execute.addActionListener(e -> {
-            simulationThread = new SimulationThread((Graphics2D) canvas.getGraphics());
-            simulationThread.start();
-        });
-        btn_stop.addActionListener(e -> {
-            if (simulationThread != null && simulationThread.isAlive()) {
-                Configuration.getInstance().getSimulation().stop();
+        simList.addItemMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                SimulationListItem item = (SimulationListItem)e.getComponent();
+                Simulation sim = item.getSimulation();
+                if (currentSimulation != null)
+                    currentSimulation.removeObserver(canvas);
+                currentSimulation = sim;
+                sim.addObserver(canvas);
+                canvas.setSimulation(sim);
+                simList.selectItem(item);
             }
         });
-        btn_continue.addActionListener(e -> {
-            if (simulationThread != null && !simulationThread.isAlive()) {
-                simulationThread = new SimulationThread((Graphics2D) canvas.getGraphics());
-                simulationThread.continueSimulation();
-                Configuration.getInstance().getSimulation().continueSimulation();
-            }
-        });
-        btn_pause.addActionListener(e -> {
-            if (simulationThread != null && simulationThread.isAlive()) {
-                Configuration.getInstance().getSimulation().pause();
-            }
+
+        btn_start.addActionListener(e -> (new SimulationThread(currentSimulation)).start());
+        btn_pause.addActionListener(e -> currentSimulation.pause());
+        btn_restart.addActionListener(e-> {
+            currentSimulation.init();
+            
         });
 
         JPanel toolBar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        toolBar.add(btn_execute);
-        toolBar.add(btn_stop);
-        toolBar.add(btn_continue);
+        toolBar.add(btn_start);
         toolBar.add(btn_pause);
+        toolBar.add(btn_restart);
+
         add(toolBar, BorderLayout.NORTH);
+        add(simList, BorderLayout.EAST);
         add(canvas);
 
         setVisible(true);

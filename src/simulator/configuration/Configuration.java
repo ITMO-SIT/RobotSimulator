@@ -13,7 +13,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 
 public class Configuration {
 
@@ -24,18 +23,18 @@ public class Configuration {
     private Constructor constructorTarget;
     private Constructor constructorField;
 
-    private ArrayList<Robot>  robots;
-    private ArrayList<Target> targets;
-    private Simulation  simulation;
-    private Field       field;
+//    private ArrayList<Robot>  robots;
+//    private ArrayList<Target> targets;
+//    private Simulation  simulation;
+//    private Field       field;
 
     static public Configuration getInstance() {
             return instance;
     }
 
     private Configuration() {
-        robots   = new ArrayList<>();
-        targets  = new ArrayList<>();
+//        robots   = new ArrayList<>();
+//        targets  = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(new File("configuration.txt")));
             constructorSimulation = Class.forName(reader.readLine()).getConstructor();
@@ -50,58 +49,66 @@ public class Configuration {
 
     public Simulation newSimulationInstance() {
         try {
-            return simulation = (Simulation) constructorSimulation.newInstance();
+//            return simulation = (Simulation) constructorSimulation.newInstance();
+            return (Simulation) constructorSimulation.newInstance();
         } catch (Exception e) {
             System.err.println("Ошибка создания симуляции");
             e.printStackTrace();
-            return simulation = new DefaultSimulation();
+//            return simulation = new DefaultSimulation();
+            return new DefaultSimulation();
         }
     }
 
     public Robot newRobotInstance() {
-        Robot robot;
+//        Robot robot;
         try {
-            robot = (Robot) constructorRobot.newInstance();
+//            robot = (Robot) constructorRobot.newInstance();
+            return (Robot) constructorRobot.newInstance();
         } catch (Exception e) {
             System.err.println("Ошибка создания робота");
             e.printStackTrace();
-            robot = new DefaultRobot();
+//            robot = new DefaultRobot();
+            return new DefaultRobot();
         }
-        robots.add(robot);
-        return robot;
+//        robots.add(robot);
+//        return robot;
     }
 
     public Target newTargetInstance() {
-        Target target;
+//        Target target;
         try {
-            target = (Target) constructorTarget.newInstance();
+//            target = (Target) constructorTarget.newInstance();
+            return (Target) constructorTarget.newInstance();
         } catch (Exception e) {
             System.err.println("Ошибка создания цели");
             e.printStackTrace();
-            target = new DefaultTarget();
+//            target = new DefaultTarget();
+            return new DefaultTarget();
         }
-        targets.add(target);
-        return target;
+//        targets.add(target);
+//        return target;
     }
 
     public Field newFieldInstance() {
         try {
-            return field = (Field) constructorField.newInstance();
+//            return field = (Field) constructorField.newInstance();
+            return (Field) constructorField.newInstance();
         } catch (Exception e) {
             System.err.println("Ошибка создания поля");
             e.printStackTrace();
-            return field = new DefaultField();
+//            return field = new DefaultField();
+            return new DefaultField();
         }
     }
 
 
-    public void resetRobots()  {robots.clear();}
-    public void resetTargets() {targets.clear();}
+//    public void resetRobots()  {robots.clear();}
+//    public void resetTargets() {targets.clear();}
 
     // ------- getter region start -------//
-    public Field      getField()      {return field;}
-    public Simulation getSimulation() {return simulation;}
-    public ArrayList<Target> getTargets() {return targets;}
-    public ArrayList<Robot>  getRobots()  {return robots;}
+//    public Field      getField()      {return field;}
+//    public Simulation getSimulation() {return simulation;}
+//    public ArrayList<Target> getTargets() {return targets;}
+//    public ArrayList<Robot>  getRobots()  {return robots;}
     // ------- getter region end   -------//
 }
