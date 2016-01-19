@@ -17,8 +17,8 @@ public class AnyLogicRobot extends Robot {
     protected Color color;
 
     protected ArrayList<AnyLogicRobot> neighbors;
-    protected double criticalDist = 5;
-    protected double activeDist = 10;
+    protected double criticalDist/*= 4*/;
+    protected double activeDist/* = 20*/;
 
     protected double  teta;
     protected double  wT, wF;
@@ -35,7 +35,9 @@ public class AnyLogicRobot extends Robot {
     public void draw(Graphics g) {
         g.setColor(color);
         g.fillOval((int)x - 2, (int)y - 2, 4, 4);
-//        g.drawOval((int)x-50, (int)y-50, 100, 100);
+//        if (wF == 1 || wT != 0)
+//            g.drawOval((int)(x - activeDist), (int)(y - activeDist),
+//                       (int)activeDist * 2, (int) activeDist * 2);
     }
 
     public void setRobotType(Type type) {
@@ -57,21 +59,24 @@ public class AnyLogicRobot extends Robot {
                 color = Color.RED;
                 break;
         }
-        gT = new Point2D.Double(targets.get(0).getX() / 2, targets.get(0).getY() / 2);
-        gF = new Point2D.Double(targets.get(1).getX() / 2, targets.get(1).getY() / 2);
+        gT = new Point2D.Double(targets.get(0).getCenterX(), targets.get(0).getCenterY());
+        gF = new Point2D.Double(targets.get(1).getCenterX(), targets.get(1).getCenterY());
 
         h = new Point2D.Double(RANDOM.nextDouble() - 0.5, 0.2 - RANDOM.nextDouble());
+        findNeighbors();
+        calcH();
 
         initTeta();
     }
 
     public void setCriticalDist(double dist) {criticalDist = dist;}
+    public void setActiveDist(double dist)   {activeDist = dist;}
 
     @Override
     public void doStep() {
         if (!isActive) return;
         targets.stream().filter(target -> target.contains(x, y)).forEach(target -> targetDone());
-        if (x < 0 || y < 0 || x > 900 || y > 800) {
+        if (x < 0 || y < 0 || x > 1000 || y > 800) {
             isActive = false;
             return;
         }
@@ -119,7 +124,7 @@ public class AnyLogicRobot extends Robot {
         for (Robot robot : simulation.getRobots()) {
             if (robot == this) continue;
             if (!robot.isActive()) continue;
-            if (calcHypotenuse(x - robot.getX(), y - robot.getY()) <= activeDist) {
+            if (calcHypotenuse(x - robot.getX(), y - robot.getY()) < activeDist) {
                 neighbors.add((AnyLogicRobot) robot);
             }
         }
@@ -127,8 +132,8 @@ public class AnyLogicRobot extends Robot {
 
     private boolean neighborsInSector(double angle) {
         double d = criticalDist;
-        double x1 = x + speed * Math.cos(angle) * d;
-        double y1 = y + speed * Math.sin(angle) * d;
+        double x1 = x + Math.cos(angle) * d;
+        double y1 = y + Math.sin(angle) * d;
 
         if (Math.cos(angle) != 0 && Math.sin(angle) != 0) {
             double k = Math.sin(angle) / Math.cos(angle);
@@ -229,14 +234,14 @@ public class AnyLogicRobot extends Robot {
 
     private void calcG() {
         Target target = targets.get(0);
-        double tempX = target.getX() + target.getSize() / 2 - x;
-        double tempY = target.getY() + target.getSize() / 2 - y;
+        double tempX = target.getCenterX() - x;
+        double tempY = target.getCenterY() - y;
         double dist = calcHypotenuse(tempX, tempY);
         gT.setLocation(tempX / dist, tempY / dist);
 
         target = targets.get(1);
-        tempX = target.getX() + target.getSize() / 2 - x;
-        tempY = target.getY() + target.getSize() / 2 - y;
+        tempX = target.getCenterX() - x;
+        tempY = target.getCenterY() - y;
         dist = calcHypotenuse(tempX, tempY);
         gF.setLocation(tempX / dist, tempY / dist);
     }
@@ -244,7 +249,7 @@ public class AnyLogicRobot extends Robot {
     private void calcH() {
         double sumCos = 0;
         double sumSin = 0;
-        if (neighbors.size() == 0) return;
+        if (neighbors.isEmpty()) return;
         for (AnyLogicRobot robot : neighbors) {
             sumCos += Math.cos(robot.teta);
             sumSin += Math.sin(robot.teta);

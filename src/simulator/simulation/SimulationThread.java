@@ -31,7 +31,7 @@ public class SimulationThread extends Thread {
 //                        robot.draw(g);
 //                    }
 //                });
-                Thread.sleep(100);
+                Thread.sleep(50);
                 simulation.notifyObservers();
             } catch (Exception err) {
                 err.printStackTrace();

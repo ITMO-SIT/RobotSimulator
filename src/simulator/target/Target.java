@@ -15,6 +15,9 @@ abstract public class Target {
         return x < X && X < x + size && y < Y && Y < y + size;
     }
 
+    public double getCenterX() {return x + size / 2;}
+    public double getCenterY() {return y + size / 2;}
+
     public double getX() {return x;}
     public double getY() {return y;}
     public double getSize() {return size;}

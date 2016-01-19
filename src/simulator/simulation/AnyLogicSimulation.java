@@ -1,21 +1,32 @@
 package simulator.simulation;
 
-import org.w3c.dom.Node;
 import simulator.configuration.Configuration;
 import simulator.robot.AnyLogicRobot;
 import simulator.robot.Robot;
 import simulator.target.Target;
 
+import java.util.Random;
+
 public class AnyLogicSimulation extends Simulation{
+
+    // только для инициализации. потом не будет
+    private boolean chekRobotXY(int X, int Y) {
+        for (Robot robot : robots)
+            if (robot.getX() == X && robot.getY() == Y)
+                return true;
+        return false;
+    }
 
     @Override
     public void init() {
 
-        double criticalDist = 4;
-        if (initConf != null) {
-            Node node = initConf.getChildNodes().item(1);
-            criticalDist = Double.parseDouble(node.getAttributes().getNamedItem("value").getTextContent());
-        }
+//        double criticalDist = 1.5 * 3;
+        double criticalDist = 5;
+        double activeDist   = 7;
+//        if (initConf != null) {
+//            Node node = initConf.getChildNodes().item(1);
+//            criticalDist = Double.parseDouble(node.getAttributes().getNamedItem("value").getTextContent());
+//        }
 
         Configuration conf = Configuration.getInstance();
 
@@ -34,52 +45,42 @@ public class AnyLogicSimulation extends Simulation{
         target.setSize(100);
         targets.add(target);
 
-        for (int i = 0; i < 20; i++)
-            for (int j = 0; j < 15; j++) {
-                Robot robot = conf.newRobotInstance();
-                robot.setX(300 + i * (4 + Math.floor(criticalDist)));
-                robot.setY(400 + j * (4 + Math.floor(criticalDist)));
-                robot.setSpeed(2);
-                robot.setSimulation(this);
-                targets.forEach(robot::addTarget);
-                robots.add(robot);
-                if (robot instanceof AnyLogicRobot) {       // костыль, но пока так
-                    ((AnyLogicRobot) robot).setRobotType(AnyLogicRobot.Type.philistine);
-                    ((AnyLogicRobot) robot).setCriticalDist(criticalDist);
-                } else {
-                    System.out.println("Неприменимый тип. Симуляция не инициализированна до конца!");
-                    System.out.println(robot.getClass().getName());
-                    return;
-                }
+        Random random = new Random(666);
+
+        int philistine = 300;
+        int goodboy = 30;
+        int enemy = 5;
+        int N = philistine + goodboy + enemy;
+
+        for (int i = 0; i < N; i++) {
+            int X, Y;
+            while (true) {
+                X = (int)(300 + random.nextInt(20) * (4 + criticalDist));
+                Y = (int)(400 + random.nextInt(17) * (4 + criticalDist));
+                if (!chekRobotXY(X, Y)) break;
             }
-
-        // куча костылей
-        ((AnyLogicRobot)robots.get(10)).setRobotType(AnyLogicRobot.Type.enemy);
-        ((AnyLogicRobot)robots.get(17)).setRobotType(AnyLogicRobot.Type.enemy);
-        ((AnyLogicRobot)robots.get(33)).setRobotType(AnyLogicRobot.Type.enemy);
-        ((AnyLogicRobot)robots.get(25)).setRobotType(AnyLogicRobot.Type.enemy);
-        ((AnyLogicRobot)robots.get(13)).setRobotType(AnyLogicRobot.Type.enemy);
-        ((AnyLogicRobot)robots.get(21)).setRobotType(AnyLogicRobot.Type.enemy);
-        ((AnyLogicRobot)robots.get(100)).setRobotType(AnyLogicRobot.Type.enemy);
-        ((AnyLogicRobot)robots.get(170)).setRobotType(AnyLogicRobot.Type.enemy);
-        ((AnyLogicRobot)robots.get(290)).setRobotType(AnyLogicRobot.Type.enemy);
-        ((AnyLogicRobot)robots.get(250)).setRobotType(AnyLogicRobot.Type.enemy);
-        ((AnyLogicRobot)robots.get(130)).setRobotType(AnyLogicRobot.Type.enemy);
-        ((AnyLogicRobot)robots.get(210)).setRobotType(AnyLogicRobot.Type.enemy);
-
-        ((AnyLogicRobot)robots.get(23)).setRobotType(AnyLogicRobot.Type.goodboy);
-        ((AnyLogicRobot)robots.get(11)).setRobotType(AnyLogicRobot.Type.goodboy);
-        ((AnyLogicRobot)robots.get(37)).setRobotType(AnyLogicRobot.Type.goodboy);
-        ((AnyLogicRobot)robots.get(52)).setRobotType(AnyLogicRobot.Type.goodboy);
-        ((AnyLogicRobot)robots.get(135)).setRobotType(AnyLogicRobot.Type.goodboy);
-        ((AnyLogicRobot)robots.get(217)).setRobotType(AnyLogicRobot.Type.goodboy);
-        ((AnyLogicRobot)robots.get(111)).setRobotType(AnyLogicRobot.Type.goodboy);
-        ((AnyLogicRobot)robots.get(170)).setRobotType(AnyLogicRobot.Type.goodboy);
-        ((AnyLogicRobot)robots.get(267)).setRobotType(AnyLogicRobot.Type.goodboy);
-        ((AnyLogicRobot)robots.get(243)).setRobotType(AnyLogicRobot.Type.goodboy);
-        ((AnyLogicRobot)robots.get(142)).setRobotType(AnyLogicRobot.Type.goodboy);
-        ((AnyLogicRobot)robots.get(277)).setRobotType(AnyLogicRobot.Type.goodboy);
-
+            Robot robot = conf.newRobotInstance();
+            robot.setX(X);
+            robot.setY(Y);
+            robot.setSpeed(1);
+            robot.setSimulation(this);
+            targets.forEach(robot::addTarget);
+            robots.add(robot);
+            if (robot instanceof AnyLogicRobot) {       // костыль, но пока так
+                if (i < philistine)
+                    ((AnyLogicRobot) robot).setRobotType(AnyLogicRobot.Type.philistine);
+                else if (i < philistine + goodboy)
+                    ((AnyLogicRobot) robot).setRobotType(AnyLogicRobot.Type.goodboy);
+                else
+                    ((AnyLogicRobot) robot).setRobotType(AnyLogicRobot.Type.enemy);
+                ((AnyLogicRobot) robot).setCriticalDist(criticalDist);
+                ((AnyLogicRobot) robot).setActiveDist(activeDist);
+            } else {
+                System.out.println("Неприменимый тип. Симуляция не инициализированна до конца!");
+                System.out.println(robot.getClass().getName());
+                return;
+            }
+        }
         isActive = true;
     }
 
