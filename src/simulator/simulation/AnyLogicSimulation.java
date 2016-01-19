@@ -20,13 +20,8 @@ public class AnyLogicSimulation extends Simulation{
     @Override
     public void init() {
 
-//        double criticalDist = 1.5 * 3;
-        double criticalDist = 5;
-        double activeDist   = 7;
-//        if (initConf != null) {
-//            Node node = initConf.getChildNodes().item(1);
-//            criticalDist = Double.parseDouble(node.getAttributes().getNamedItem("value").getTextContent());
-//        }
+        double criticalDist = 5;        // минимальное расстояние
+        double activeDist   = 20;       // расстоние взаимодействия
 
         Configuration conf = Configuration.getInstance();
 
@@ -47,9 +42,9 @@ public class AnyLogicSimulation extends Simulation{
 
         Random random = new Random(666);
 
-        int philistine = 300;
-        int goodboy = 30;
-        int enemy = 5;
+        int philistine = 300;  // количество обычных роботов
+        int goodboy = 30;      // количество хороших роботов
+        int enemy = 5;         // количество плохих роботов
         int N = philistine + goodboy + enemy;
 
         for (int i = 0; i < N; i++) {

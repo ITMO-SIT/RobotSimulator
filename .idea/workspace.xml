@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ea9789a-2294-4796-8fe8-36b65742e9af" name="Default" comment="Рефакторинг и управление потокм симуляции">
+    <list default="true" id="2ea9789a-2294-4796-8fe8-36b65742e9af" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulator/robot/AnyLogicRobot.java" afterPath="$PROJECT_DIR$/src/simulator/robot/AnyLogicRobot.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulator/simulation/AnyLogicSimulation.java" afterPath="$PROJECT_DIR$/src/simulator/simulation/AnyLogicSimulation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulator/simulation/SimulationThread.java" afterPath="$PROJECT_DIR$/src/simulator/simulation/SimulationThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/simulator/target/Target.java" afterPath="$PROJECT_DIR$/src/simulator/target/Target.java" />
     </list>
     <ignored path="RobotSimulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,17 +30,16 @@
         <entry file="file://$PROJECT_DIR$/src/simulator/robot/AnyLogicRobot.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+              <caret line="224" column="41" selection-start-line="224" selection-start-column="41" selection-end-line="224" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#AnyLogicRobot#0;class#AnyLogicRobot#0" expanded="false" />
                 <element signature="method#draw#0;class#AnyLogicRobot#0" expanded="false" />
                 <element signature="method#setRobotType#0;class#AnyLogicRobot#0" expanded="false" />
-                <element signature="method#doStep#0;class#AnyLogicRobot#0" expanded="false" />
+                <element signature="e#3068#3069#0" expanded="true" />
+                <element signature="e#3100#3101#0" expanded="true" />
                 <element signature="method#initTeta#0;class#AnyLogicRobot#0" expanded="false" />
                 <element signature="method#neighborsInSector#0;class#AnyLogicRobot#0" expanded="false" />
-                <element signature="method#calcTeta#0;class#AnyLogicRobot#0" expanded="false" />
-                <element signature="method#calcG#0;class#AnyLogicRobot#0" expanded="false" />
                 <element signature="method#calcH#0;class#AnyLogicRobot#0" expanded="false" />
                 <element signature="method#calcCorrectDist#0;class#AnyLogicRobot#0" expanded="false" />
               </folding>
@@ -64,11 +60,44 @@
       <file leaf-file-name="AnyLogicSimulation.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/simulator/simulation/AnyLogicSimulation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.94863015">
-              <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.62092626">
+              <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CountTarget.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/simulator/target/CountTarget.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+              <folding>
+                <element signature="e#326#327#0" expanded="true" />
+                <element signature="e#372#373#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Target.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/simulator/target/Target.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Simulation.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/simulator/simulation/Simulation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -146,7 +175,6 @@
         <option value="$PROJECT_DIR$/src/simulator/gui/MainFrame.java" />
         <option value="$PROJECT_DIR$/src/simulator/simulation/TestSimulation.java" />
         <option value="$PROJECT_DIR$/src/simulator/simulation/DefaultSimulation.java" />
-        <option value="$PROJECT_DIR$/src/simulator/simulation/Simulation.java" />
         <option value="$PROJECT_DIR$/src/simulator/robot/Robot.java" />
         <option value="$PROJECT_DIR$/src/simulator/configuration/Configuration.java" />
         <option value="$PROJECT_DIR$/src/simulator/target/CountTarget.java" />
@@ -156,6 +184,7 @@
         <option value="$PROJECT_DIR$/src/simulator/target/Target.java" />
         <option value="$PROJECT_DIR$/testConfiguration.xml" />
         <option value="$PROJECT_DIR$/src/simulator/robot/AnyLogicRobot.java" />
+        <option value="$PROJECT_DIR$/src/simulator/simulation/Simulation.java" />
         <option value="$PROJECT_DIR$/src/simulator/simulation/AnyLogicSimulation.java" />
       </list>
     </option>
@@ -238,6 +267,90 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="RobotSimulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RobotSimulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RobotSimulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RobotSimulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RobotSimulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="target" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RobotSimulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RobotSimulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RobotSimulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RobotSimulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="robot" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -544,7 +657,13 @@
       <option name="project" value="LOCAL" />
       <updated>1452277131451</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Исправленная модель из AnyLogic">
+      <created>1453200834546</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1453200834546</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -553,26 +672,26 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6781046" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.67757773" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.295764" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962178" sideWeight="0.4942717" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.4942717" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5057283" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45335516" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.295764" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45335516" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="UnknownFeatures">
@@ -605,7 +724,8 @@
     <MESSAGE value="Главный класс Simulator" />
     <MESSAGE value="Дебагг" />
     <MESSAGE value="Рефакторинг и управление потокм симуляции" />
-    <option name="LAST_COMMIT_MESSAGE" value="Рефакторинг и управление потокм симуляции" />
+    <MESSAGE value="Исправленная модель из AnyLogic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Исправленная модель из AnyLogic" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -907,24 +1027,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/simulator/target/CountTarget.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/simulator/robot/Robot.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.754717">
           <caret line="22" column="49" selection-start-line="21" selection-start-column="8" selection-end-line="22" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/simulator/simulation/Simulation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.78216124">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -950,13 +1056,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/simulator/target/Target.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testConfiguration.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -973,30 +1072,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/simulator/target/Target.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/simulator/target/CountTarget.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+          <folding>
+            <element signature="e#326#327#0" expanded="true" />
+            <element signature="e#372#373#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/simulator/robot/AnyLogicRobot.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <caret line="224" column="41" selection-start-line="224" selection-start-column="41" selection-end-line="224" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#AnyLogicRobot#0;class#AnyLogicRobot#0" expanded="false" />
             <element signature="method#draw#0;class#AnyLogicRobot#0" expanded="false" />
             <element signature="method#setRobotType#0;class#AnyLogicRobot#0" expanded="false" />
-            <element signature="method#doStep#0;class#AnyLogicRobot#0" expanded="false" />
+            <element signature="e#3068#3069#0" expanded="true" />
+            <element signature="e#3100#3101#0" expanded="true" />
             <element signature="method#initTeta#0;class#AnyLogicRobot#0" expanded="false" />
             <element signature="method#neighborsInSector#0;class#AnyLogicRobot#0" expanded="false" />
-            <element signature="method#calcTeta#0;class#AnyLogicRobot#0" expanded="false" />
-            <element signature="method#calcG#0;class#AnyLogicRobot#0" expanded="false" />
             <element signature="method#calcH#0;class#AnyLogicRobot#0" expanded="false" />
             <element signature="method#calcCorrectDist#0;class#AnyLogicRobot#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/simulator/simulation/Simulation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/simulator/simulation/AnyLogicSimulation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.94863015">
-          <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.62092626">
+          <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
