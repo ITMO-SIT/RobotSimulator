@@ -1,6 +1,7 @@
 package simulator.gui;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import simulator.configuration.Configuration;
 import simulator.simulation.Simulation;
@@ -11,6 +12,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SimulationList extends JPanel{
 
@@ -28,7 +30,7 @@ public class SimulationList extends JPanel{
             Configuration conf = Configuration.getInstance();
             for (int i = 0, len = testList.getLength(); i < len; i++) {
                 Simulation sim = conf.newSimulationInstance();
-                sim.setInitConf(testList.item(i));
+                sim.setSimulationParam(parseSimulationParam(testList.item(i)));
                 sim.init();
                 addSimulation(sim);
             }
@@ -52,6 +54,20 @@ public class SimulationList extends JPanel{
         for (SimulationListItem item : simulations)
             item.setBackground(Color.WHITE);
         selectedItem.setBackground(Color.LIGHT_GRAY);
+    }
+
+    private HashMap<String, String> parseSimulationParam(Node node) {
+        HashMap<String, String> param = new HashMap<>();
+        NodeList child = node.getChildNodes();
+        for (int i = 0, len = child.getLength(); i < len; i++) {
+            Node n = child.item(i);
+            if (n.getNodeType() == Node.ELEMENT_NODE) {
+                String key = n.getNodeName();
+                String val = n.getAttributes().getNamedItem("value").getTextContent();
+                param.put(key, val);
+            }
+        }
+        return param;
     }
 
 }

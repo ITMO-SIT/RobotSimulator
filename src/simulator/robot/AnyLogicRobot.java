@@ -66,7 +66,10 @@ public class AnyLogicRobot extends Robot {
         findNeighbors();
         calcH();
 
-        initTeta();
+        if (wT == 0)
+            teta = RANDOM.nextDouble() * Math.PI * 2;
+        else
+            calcTeta();
     }
 
     public void setCriticalDist(double dist) {criticalDist = dist;}
@@ -112,20 +115,15 @@ public class AnyLogicRobot extends Robot {
         isActive = false;
     }
 
-    private void initTeta() {
-        if (wT == 0)
-            teta = RANDOM.nextDouble() * Math.PI * 2;
-        else
-            calcTeta();
-    }
-
+    // скорее всего в будущем реализация данного метода отойдет к симуляции
     private void findNeighbors() {
         neighbors.clear();
-        for (Robot robot : simulation.getRobots()) {
+        for (Object object : simulation.getRobots()) {
+            AnyLogicRobot robot = (AnyLogicRobot) object;
             if (robot == this) continue;
             if (!robot.isActive()) continue;
             if (calcHypotenuse(x - robot.getX(), y - robot.getY()) < activeDist) {
-                neighbors.add((AnyLogicRobot) robot);
+                neighbors.add(robot);
             }
         }
     }

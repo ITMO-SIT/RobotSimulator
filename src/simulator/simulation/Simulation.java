@@ -1,42 +1,52 @@
 package simulator.simulation;
 
-import org.w3c.dom.Node;
-import simulator.Observable;
-import simulator.Observer;
+import simulator.helper.Observable;
+import simulator.helper.Observer;
 import simulator.field.Field;
 import simulator.robot.Robot;
 import simulator.target.Target;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-abstract public class Simulation implements Observable {
-
+abstract public class Simulation<R extends Robot> implements Observable {
+// ---------------------- поля класса ---------------------- //
     protected String  name;
     protected boolean isActive;
 
-    protected ArrayList<Robot>  robots;
+    protected ArrayList<R>      robots;
     protected ArrayList<Target> targets;
     protected Field field;
 
-    protected Node initConf;
-
     protected ArrayList<Observer> observers;
+// ---------------------- поля класса ---------------------- //
+// ------------------- абстрактные методы ------------------ //
+    abstract public void    init();
+    abstract public boolean nextIteration();
+// ------------------- абстрактные методы ------------------ //
 
-    public Simulation() {
-        robots  = new ArrayList<>();
-        targets = new ArrayList<>();
+    protected Simulation() {
+        robots    = new ArrayList<>();
+        targets   = new ArrayList<>();
         observers = new ArrayList<>();
         name = "Симуляция";
         isActive = false;
     }
 
-    abstract public void    init();
-    abstract public boolean nextIteration();
+    public void setSimulationParam(HashMap<String, String> param) {
+        if (param.get("SimulationName") != null) name = param.get("SimulationName");
+    }
 
-    /*abstract */public void start() {isActive = true;}
-    /*abstract */public void pause() {isActive = false;}
+    public void start() {isActive = true;}
+    public void pause() {isActive = false;}
 
+    public final ArrayList<R>  getRobots()  {return robots;}
+    public final ArrayList<Target> getTargets() {return targets;}
+    public final Field   getField() {return field;}
+    public final boolean isActive() {return isActive;}
+    public final String  getName()  {return name;}
 
+// ------------- реализация интерфейса Observable ---------- //
     @Override
     public final void addObserver(Observer observer) {
         observers.add(observer);
@@ -51,18 +61,6 @@ abstract public class Simulation implements Observable {
     public final void notifyObservers() {
         observers.forEach(Observer::update);
     }
+// ------------- реализация интерфейса Observable ---------- //
 
-
-    public void setInitConf(Node conf) {
-        initConf = conf;
-        Node temp = conf.getAttributes().getNamedItem("name");
-        if (temp != null)
-            name = temp.getNodeValue();
-    }
-
-    public final ArrayList<Robot>  getRobots()  {return robots;}
-    public final ArrayList<Target> getTargets() {return targets;}
-    public final Field   getField() {return field;}
-    public final boolean isActive() {return isActive;}
-    public final String  getName()  {return name;}
 }

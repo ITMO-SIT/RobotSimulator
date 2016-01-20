@@ -1,6 +1,6 @@
 package simulator.gui;
 
-import simulator.Observer;
+import simulator.helper.Observer;
 import simulator.simulation.Simulation;
 
 import javax.swing.*;

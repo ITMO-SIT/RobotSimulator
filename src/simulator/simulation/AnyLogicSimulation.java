@@ -5,28 +5,20 @@ import simulator.robot.AnyLogicRobot;
 import simulator.robot.Robot;
 import simulator.target.Target;
 
+import java.util.HashMap;
 import java.util.Random;
 
-public class AnyLogicSimulation extends Simulation{
+public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
 
-    // только для инициализации. потом не будет
-    private boolean chekRobotXY(int X, int Y) {
-        for (Robot robot : robots)
-            if (robot.getX() == X && robot.getY() == Y)
-                return true;
-        return false;
-    }
+    double criticalDist = 5;        // минимальное расстояние
+    double activeDist   = 20;       // расстоние взаимодействия
 
     @Override
     public void init() {
-
-        double criticalDist = 5;        // минимальное расстояние
-        double activeDist   = 20;       // расстоние взаимодействия
-
-        Configuration conf = Configuration.getInstance();
-
         robots.clear();
         targets.clear();
+
+        Configuration conf = Configuration.getInstance();
 
         Target target = conf.newTargetInstance();
         target.setX(0);
@@ -40,41 +32,38 @@ public class AnyLogicSimulation extends Simulation{
         target.setSize(100);
         targets.add(target);
 
-        Random random = new Random(666);
+        Random random = new Random(666);    // ГПСЧ для расстановки роботов
 
-        int philistine = 300;  // количество обычных роботов
-        int goodboy = 30;      // количество хороших роботов
-        int enemy = 5;         // количество плохих роботов
+        int philistine = 300;   // количество обычных роботов
+        int goodboy = 30;       // количество хороших роботов
+        int enemy = 5;          // количество плохих роботов
         int N = philistine + goodboy + enemy;
+
+        int cols = 20;
+        int rows  = (int) Math.ceil((double) N / cols);
 
         for (int i = 0; i < N; i++) {
             int X, Y;
             while (true) {
-                X = (int)(300 + random.nextInt(20) * (4 + criticalDist));
-                Y = (int)(400 + random.nextInt(17) * (4 + criticalDist));
+                X = (int)(300 + random.nextInt(cols) * (4 + criticalDist));
+                Y = (int)(400 + random.nextInt(rows) * (4 + criticalDist));
                 if (!chekRobotXY(X, Y)) break;
             }
-            Robot robot = conf.newRobotInstance();
+            AnyLogicRobot robot = (AnyLogicRobot) conf.newRobotInstance();
+            robot.setCriticalDist(criticalDist);
+            robot.setActiveDist(activeDist);
             robot.setX(X);
             robot.setY(Y);
             robot.setSpeed(1);
             robot.setSimulation(this);
             targets.forEach(robot::addTarget);
             robots.add(robot);
-            if (robot instanceof AnyLogicRobot) {       // костыль, но пока так
-                if (i < philistine)
-                    ((AnyLogicRobot) robot).setRobotType(AnyLogicRobot.Type.philistine);
-                else if (i < philistine + goodboy)
-                    ((AnyLogicRobot) robot).setRobotType(AnyLogicRobot.Type.goodboy);
-                else
-                    ((AnyLogicRobot) robot).setRobotType(AnyLogicRobot.Type.enemy);
-                ((AnyLogicRobot) robot).setCriticalDist(criticalDist);
-                ((AnyLogicRobot) robot).setActiveDist(activeDist);
-            } else {
-                System.out.println("Неприменимый тип. Симуляция не инициализированна до конца!");
-                System.out.println(robot.getClass().getName());
-                return;
-            }
+            if (i < philistine)
+                robot.setRobotType(AnyLogicRobot.Type.philistine);
+            else if (i < philistine + goodboy)
+                robot.setRobotType(AnyLogicRobot.Type.goodboy);
+            else
+                robot.setRobotType(AnyLogicRobot.Type.enemy);
         }
         isActive = true;
     }
@@ -94,7 +83,23 @@ public class AnyLogicSimulation extends Simulation{
             robot.doStep();
         }
         if (!f) isActive = false;
-//        robots.forEach(Robot::doStep);
         return true;
+    }
+
+    @Override
+    public void setSimulationParam(HashMap<String, String> param) {
+        super.setSimulationParam(param);
+        if (param.get("CriticalDist") != null)
+            criticalDist = Integer.parseInt(param.get("CriticalDist"));
+        if (param.get("ActiveDist") != null)
+            activeDist = Integer.parseInt(param.get("ActiveDist"));
+    }
+
+    // только для инициализации. потом не будет
+    private boolean chekRobotXY(int X, int Y) {
+        for (Robot robot : robots)
+            if (robot.getX() == X && robot.getY() == Y)
+                return true;
+        return false;
     }
 }

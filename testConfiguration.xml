@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <list>
-    <testConfiguration name = "Расстояние 4">
-        <CriticalDist value = "4"/>
+    <testConfiguration>
+        <SimulationName value = "Расстояние 4"/>
+        <CriticalDist   value = "4" />
+        <ActiveDist     value = "15"/>
     </testConfiguration>
 
-    <testConfiguration name = "Расстояние 6">
-        <CriticalDist value = "6"/>
+    <testConfiguration>
+        <SimulationName value = "Расстояние 6"/>
+        <CriticalDist   value = "6"/>
     </testConfiguration>
 
     <testConfiguration>
