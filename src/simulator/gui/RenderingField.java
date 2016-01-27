@@ -6,10 +6,11 @@ import simulator.simulation.Simulation;
 import simulator.target.Target;
 
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class RenderingField extends Canvas implements Observer {
+public class RenderingField extends JPanel implements Observer {
 
     private ArrayList<Robot>  robots;
     private ArrayList<Target> targets;
@@ -27,6 +28,7 @@ public class RenderingField extends Canvas implements Observer {
 
     @Override
     public void paint(Graphics g) {
+        super.paint(g);
         for (Target target : targets)
             target.draw(g);
         for (Robot robot : robots)

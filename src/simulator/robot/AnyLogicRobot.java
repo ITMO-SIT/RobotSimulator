@@ -118,8 +118,7 @@ public class AnyLogicRobot extends Robot {
     // скорее всего в будущем реализация данного метода отойдет к симуляции
     private void findNeighbors() {
         neighbors.clear();
-        for (Object object : simulation.getRobots()) {
-            AnyLogicRobot robot = (AnyLogicRobot) object;
+        for (AnyLogicRobot robot : (ArrayList<AnyLogicRobot>)simulation.getRobots()) {
             if (robot == this) continue;
             if (!robot.isActive()) continue;
             if (calcHypotenuse(x - robot.getX(), y - robot.getY()) < activeDist) {
