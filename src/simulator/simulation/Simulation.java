@@ -9,7 +9,7 @@ import simulator.target.Target;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-abstract public class Simulation<R extends Robot> implements Observable {
+abstract public class Simulation<R extends Robot> implements Runnable, Observable {
 // ---------------------- поля класса ---------------------- //
     protected String  name;
     protected boolean isActive;
@@ -62,5 +62,20 @@ abstract public class Simulation<R extends Robot> implements Observable {
         observers.forEach(Observer::update);
     }
 // ------------- реализация интерфейса Observable ---------- //
-
+// -------------- реализация интерфейса Runnable ----------- //
+    @Override
+    public void run() {
+        start();
+        System.out.println("Запуск потока");
+        while (nextIteration()) {
+            try {
+                Thread.sleep(50);
+                notifyObservers();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Завершение потока");
+    }
+// -------------- реализация интерфейса Runnable ----------- //
 }
