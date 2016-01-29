@@ -1,7 +1,6 @@
 package simulator.gui;
 
 import simulator.simulation.Simulation;
-import simulator.simulation.SimulationThread;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +27,7 @@ public class MainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                SimulationListItem item = (SimulationListItem)e.getComponent();
+                SimulationListItemSingle item = (SimulationListItemSingle)e.getComponent();
                 Simulation sim = item.getSimulation();
                 if (currentSimulation != null)
                     currentSimulation.removeObserver(canvas);
@@ -39,12 +38,9 @@ public class MainFrame extends JFrame {
             }
         });
 
-        btn_start.addActionListener(e -> (new SimulationThread(currentSimulation)).start());
+        btn_start.addActionListener(e -> new Thread(currentSimulation).start());
         btn_pause.addActionListener(e -> currentSimulation.pause());
-        btn_restart.addActionListener(e-> {
-            currentSimulation.init();
-            
-        });
+        btn_restart.addActionListener(e-> currentSimulation.init());
 
         JPanel toolBar = new JPanel(new FlowLayout(FlowLayout.LEFT));
         toolBar.add(btn_start);
