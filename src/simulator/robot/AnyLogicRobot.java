@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class AnyLogicRobot extends Robot {
 
-    private static final Random RANDOM = new Random(666);
+    private Random RANDOM = new Random(666);
 
     public enum Type {philistine, goodboy, enemy}
 
@@ -74,6 +74,7 @@ public class AnyLogicRobot extends Robot {
 
     public void setCriticalDist(double dist) {criticalDist = dist;}
     public void setActiveDist(double dist)   {activeDist = dist;}
+    public void setRandom(Random random)     {RANDOM = random;}
 
     @Override
     public void doStep() {
@@ -89,7 +90,7 @@ public class AnyLogicRobot extends Robot {
         calcCorrectDist();
         calcG();
         calcTeta();
-        teta = teta !=0 ?  teta : RANDOM.nextDouble()* Math.PI / 2; // Зачем?!
+//        teta = teta !=0 ?  teta : RANDOM.nextDouble()* Math.PI / 2; // Зачем?!
 
         double v = speed;
         if (neighborsInSector(teta))
@@ -217,16 +218,13 @@ public class AnyLogicRobot extends Robot {
     private void calcTeta() {
         double tempX = wT * gT.getX() + wF * gF.getX() + (1 - wT - wF)*h.getX();
         double tempY = wT * gT.getY() + wF * gF.getY() + (1 - wT - wF)*h.getY();
-        if (tempX != 0 ) {
+        if (tempX == 0) teta = 0;
+        else {
             teta = Math.atan(tempY / tempX);
-            if (tempX <= 0 && tempY <= 0)
-                teta += Math.PI;
-            else if (tempX >= 0 && tempY >= 0)
-                teta = -teta;
-            else if (tempX <= 0 && tempY >= 0)
-                teta = Math.PI - teta;
-        } else
-            teta = 0;
+            if      (tempX <= 0 && tempY <= 0) teta += Math.PI;
+            else if (tempX >= 0 && tempY >= 0) teta = -teta;
+            else if (tempX <= 0 && tempY >= 0) teta = Math.PI - teta;
+        }
     }
 
     private void calcG() {

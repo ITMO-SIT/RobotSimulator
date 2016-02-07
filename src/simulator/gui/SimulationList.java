@@ -1,73 +1,55 @@
 package simulator.gui;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import simulator.configuration.Configuration;
+import simulator.gui.item.SingleSimulationView;
+import simulator.services.SimulationController;
 import simulator.simulation.Simulation;
+import simulator.simulation.wrapper.SimulationWrapper;
 
 import javax.swing.*;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 
-public class SimulationList extends JPanel{
+public class SimulationList extends JPanel {
 
-    private ArrayList<SimulationListItem> simulations;
+    private final SimulationController controller = new SimulationController();
+    private RenderingField canvas;
 
-    public SimulationList() {
+    public SimulationList(RenderingField canvas) {
+        this.canvas = canvas;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        simulations = new ArrayList<>();
 
-        try {
-            Document doc = DocumentBuilderFactory.newInstance()
-                    .newDocumentBuilder().parse(new File("testConfiguration.xml"));
-            NodeList testList = doc.getElementsByTagName("testConfiguration");
-
-            Configuration conf = Configuration.getInstance();
-            for (int i = 0, len = testList.getLength(); i < len; i++) {
-                Simulation sim = conf.newSimulationInstance();
-                sim.setSimulationParam(parseSimulationParam(testList.item(i)));
-                sim.init();
-                addSimulation(sim);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (SimulationWrapper wrapper : controller.getWrappers()) {
+            SingleSimulationView view = new SingleSimulationView(this, wrapper);
+            wrapper.addObserver(view);
+            add(view);
         }
+
     }
 
-    public void addSimulation(Simulation sim) {
-        SimulationListItem listItem = new SimulationListItem(sim);
-        simulations.add(listItem);
-        add(listItem);
+    public void start(Component component) {
+       controller.start(find(component));
     }
 
-    public void addItemMouseListener(MouseAdapter adapter) {
-        for (SimulationListItem item : simulations)
-            item.addMouseListener(adapter);
+    public void pause(Component component) {
+        controller.pause(find(component));
     }
 
-    public void selectItem(SimulationListItem selectedItem) {
-        for (SimulationListItem item : simulations)
-            item.setBackground(Color.WHITE);
+    public void showSimulation(Component component) {
+        canvas.setSimulation((Simulation)controller.addObserver(find(component), canvas));
+        selectItem(component);
+    }
+
+    public void selectItem(Component selectedItem) {
+        for (Component cmp : getComponents())
+            cmp.setBackground(Color.WHITE);
         selectedItem.setBackground(Color.LIGHT_GRAY);
     }
 
-    private HashMap<String, String> parseSimulationParam(Node node) {
-        HashMap<String, String> param = new HashMap<>();
-        NodeList child = node.getChildNodes();
-        for (int i = 0, len = child.getLength(); i < len; i++) {
-            Node n = child.item(i);
-            if (n.getNodeType() == Node.ELEMENT_NODE) {
-                String key = n.getNodeName();
-                String val = n.getAttributes().getNamedItem("value").getTextContent();
-                param.put(key, val);
-            }
-        }
-        return param;
+
+    private int find(Component cmp) {
+        Component[] cmps = getComponents();
+        for (int i = 0; i < cmps.length; i++)
+            if (cmps[i] == cmp) return i;
+        return -1;
     }
 
 }

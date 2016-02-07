@@ -1,8 +1,9 @@
-package simulator.simulation;
+package simulator.simulation.ready;
 
-import simulator.configuration.Configuration;
-import simulator.robot.DefaultRobot;
+import simulator.services.Configuration;
 import simulator.robot.Robot;
+import simulator.simulation.Simulation;
+import simulator.simulation.SimulationStatus;
 import simulator.target.Target;
 
 public class DefaultSimulation extends Simulation<Robot> {
@@ -35,19 +36,18 @@ public class DefaultSimulation extends Simulation<Robot> {
                 targets.forEach(robot::addTarget);
                 robots.add(robot);
             }
-        isActive = true;
+        status = SimulationStatus.INITIALIZED;
     }
 
     @Override
-    public boolean nextIteration() {
-        if (!isActive) return false;
+    public void nextIteration() {
         boolean f = false;
         for (Robot robot : robots) {
             if (robot.isActive()) f = true;
             robot.doStep();
         }
-        if (!f) isActive = false;
-//        robots.forEach(Robot::doStep);
-        return true;
+        if (!f) {
+            status = SimulationStatus.ENDED;
+        }
     }
 }

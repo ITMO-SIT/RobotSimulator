@@ -1,6 +1,8 @@
 package simulator.gui;
 
+import simulator.helper.Observable;
 import simulator.helper.Observer;
+import simulator.helper.SimulatorEvent;
 import simulator.robot.Robot;
 import simulator.simulation.Simulation;
 import simulator.target.Target;
@@ -14,6 +16,7 @@ public class RenderingField extends JPanel implements Observer {
 
     private ArrayList<Robot>  robots;
     private ArrayList<Target> targets;
+    private Simulation simulation;
 
     public RenderingField() {
         setBackground(Color.GRAY);
@@ -22,8 +25,9 @@ public class RenderingField extends JPanel implements Observer {
     }
 
     @Override
-    public void update() {
-        repaint();
+    public void update(Observable o, SimulatorEvent event) {
+        if (event == SimulatorEvent.SIMULATION_STEP_END)
+            repaint();
     }
 
     @Override
@@ -36,7 +40,13 @@ public class RenderingField extends JPanel implements Observer {
     }
 
 
-    public void setSimulation(Simulation simulation) {
+    public void setSimulation(Simulation sim) {
+        if (simulation != null) {
+            simulation.removeObserver(this);
+            simulation.setDelay(0);
+        }
+        simulation = sim;
+        simulation.setDelay(25);
         robots  = simulation.getRobots();
         targets = simulation.getTargets();
     }
