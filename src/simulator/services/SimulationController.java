@@ -6,7 +6,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import simulator.helper.Observable;
 import simulator.helper.Observer;
-import simulator.simulation.Simulation;
+import simulator.simulation.wrapper.InfinitySimulation;
 import simulator.simulation.wrapper.RepeatSimulation;
 import simulator.simulation.wrapper.SimulationWrapper;
 import simulator.simulation.wrapper.SingleSimulation;
@@ -29,6 +29,10 @@ public class SimulationController {
 
 
     public void start(int i) {
+        SimulationWrapper temp = wrappers.get(i);
+        if (temp instanceof InfinitySimulation) {
+            ((InfinitySimulation) temp).activateWrapper();      // fixme
+        }
         threadController.add(wrappers.get(i));
     }
 
@@ -63,6 +67,11 @@ public class SimulationController {
                 wrappers.add(new RepeatSimulation(parseConstParam(elm)));
             }
 
+            nodes = doc.getElementsByTagName("InfinitySimulation");
+            for (int i =0, len = nodes.getLength(); i < len; i++) {
+                Element elm = (Element) nodes.item(i);
+                wrappers.add(new InfinitySimulation(parseConstParam(elm)));
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

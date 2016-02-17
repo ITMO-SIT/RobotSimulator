@@ -276,4 +276,7 @@ public class AnyLogicRobot extends Robot {
     private double calcHypotenuse(double x,double y) {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
+
+    public void setwF(double w) {wT = w;}
 }
+

@@ -10,9 +10,8 @@
     </SingleSimulation>
 
     <SingleSimulation>
-        <ConstParam param = "name" value = "Расстояние 6"/>
-        <ConstParam param = "criticalDist" value = "6"/>
-        <ConstParam param = "positionRandom" value = "100000"/>
+        <ConstParam param = "name" value = "Рандомный сценарий"/>
+        <ConstParam param = "allRandom" value = "true"/>
     </SingleSimulation>
 
     <RepeatSimulation>
@@ -27,5 +26,11 @@
         <ConstParam param = "countGoodBoy" value = "30"/>
         <ConstParam param = "countEnemy" value = "5"/>
     </RepeatSimulation>
+
+    <InfinitySimulation>
+        <ConstParam param = "name" value = "Бесконечные рандомные сценарии"/>
+        <ConstParam param = "allRandom" value = "true"/>
+        <ConstParam param = "resultFilePath" value = "result.txt"/>
+    </InfinitySimulation>
 
 </list>

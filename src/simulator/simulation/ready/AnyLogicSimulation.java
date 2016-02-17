@@ -19,6 +19,8 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
     private int countGoodBoy = 30;       // количество хороших роботов
     private int countEnemy = 5;          // количество плохих роботов
 
+    private double confidenceGoodBoy = 0.1;
+
     private Integer positionSeed;
     private Integer roboInitSeed;
 
@@ -67,7 +69,7 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             while (true) {
                 X = (int)(300 + positionRandom.nextInt(cols) * (4 + criticalDist));
                 Y = (int)(400 + positionRandom.nextInt(rows) * (4 + criticalDist));
-                if (!chekRobotXY(X, Y)) break;
+                if (!checkRobotXY(X, Y)) break;
             }
             AnyLogicRobot robot = (AnyLogicRobot) conf.newRobotInstance();
             robot.setCriticalDist(criticalDist);
@@ -81,8 +83,10 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             robots.add(robot);
             if (i < countPhilistine)
                 robot.setRobotType(AnyLogicRobot.Type.philistine);
-            else if (i < countPhilistine + countGoodBoy)
+            else if (i < countPhilistine + countGoodBoy) {
                 robot.setRobotType(AnyLogicRobot.Type.goodboy);
+                robot.setwF(confidenceGoodBoy);
+            }
             else
                 robot.setRobotType(AnyLogicRobot.Type.enemy);
         }
@@ -109,6 +113,7 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
         str.append(countPhilistine).append(" ");
         str.append(countGoodBoy).append(" ");
         str.append(countEnemy).append(" ");
+        str.append(confidenceGoodBoy).append(" ");
 
         str.append(targets.get(0).toString()).append(" ");
         str.append(targets.get(1).toString()).append(" ");
@@ -118,17 +123,37 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
     @Override
     public void setSimulationParam(HashMap<String, String> param) {
         super.setSimulationParam(param);
-        if (param.get("criticalDist") != null) criticalDist = Double.parseDouble(param.get("criticalDist"));
-        if (param.get("activeDist") != null) activeDist = Double.parseDouble(param.get("activeDist"));
-        if (param.get("positionSeed") != null) positionSeed = Integer.parseInt(param.get("positionSeed"));
-        if (param.get("poboInitSeed") != null) roboInitSeed = Integer.parseInt(param.get("poboInitSeed"));
-        if (param.get("countPhilistine") != null) countPhilistine = Integer.parseInt(param.get("countPhilistine"));
-        if (param.get("countGoodBoy") != null) countGoodBoy = Integer.parseInt(param.get("countGoodBoy"));
-        if (param.get("countEnemy") != null) countEnemy = Integer.parseInt(param.get("countEnemy"));
+
+        if (param.get("allRandom") != null && Boolean.parseBoolean(param.get("allRandom"))) {
+            Random random = new Random();
+            activeDist = random.nextDouble() * (30 - 10) + 10;
+            criticalDist = random.nextDouble() * (5 - 1) + 1;
+            confidenceGoodBoy = random.nextDouble() * (1.0 - 0.1) + 0.1;
+
+            int N = random.nextInt(901) + 100;
+            int percentGoodBoys = random.nextInt(51) + 1;
+            int percentEnemies = random.nextInt(34) + 1;
+
+//            System.out.println(N + " " + percentGoodBoys + " " + percentEnemies);
+
+            countGoodBoy = (int)((double)N / 100 * percentGoodBoys);
+            countEnemy = (int)((double)N / 100 * percentEnemies);
+            countPhilistine = N - countEnemy - countGoodBoy;
+        } else {
+            if (param.get("criticalDist") != null) criticalDist = Double.parseDouble(param.get("criticalDist"));
+            if (param.get("activeDist") != null) activeDist = Double.parseDouble(param.get("activeDist"));
+            if (param.get("positionSeed") != null) positionSeed = Integer.parseInt(param.get("positionSeed"));
+            if (param.get("poboInitSeed") != null) roboInitSeed = Integer.parseInt(param.get("poboInitSeed"));
+            if (param.get("countPhilistine") != null) countPhilistine = Integer.parseInt(param.get("countPhilistine"));
+            if (param.get("countGoodBoy") != null) countGoodBoy = Integer.parseInt(param.get("countGoodBoy"));
+            if (param.get("countEnemy") != null) countEnemy = Integer.parseInt(param.get("countEnemy"));
+            if (param.get("confidenceGoodBoy") != null)
+                confidenceGoodBoy = Double.parseDouble(param.get("confidenceGoodBoy"));
+        }
     }
 
     // только для инициализации. потом не будет
-    private boolean chekRobotXY(int X, int Y) {
+    private boolean checkRobotXY(int X, int Y) {
         for (Robot robot : robots)
             if (robot.getX() == X && robot.getY() == Y)
                 return true;
