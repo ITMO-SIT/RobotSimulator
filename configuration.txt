@@ -1,4 +1,4 @@
-simulator.simulation.ready.AnyLogicSimulation
+simulator.simulation.ready.TestSimulation
 simulator.robot.AnyLogicRobot
 simulator.target.CountTarget
 simulator.field.DefaultField

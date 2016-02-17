@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.Constructor;
 
+@Deprecated
 public class Configuration {
 
     private static final Configuration instance = new Configuration();

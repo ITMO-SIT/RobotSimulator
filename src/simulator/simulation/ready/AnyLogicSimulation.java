@@ -1,5 +1,6 @@
 package simulator.simulation.ready;
 
+import simulator.helper.InputSimulationParam;
 import simulator.services.Configuration;
 import simulator.robot.AnyLogicRobot;
 import simulator.robot.Robot;
@@ -11,16 +12,20 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
+    @Deprecated
+    private int ass;// test
 
-    private double criticalDist = 5;        // минимальное расстояние
-    private double activeDist   = 20;       // расстоние
+    @InputSimulationParam public double criticalDist = 5;        // минимальное расстояние
+    @InputSimulationParam public double activeDist   = 20;       // расстоние
 
-    private int countPhilistine = 300;   // количество обычных роботов
-    private int countGoodBoy = 30;       // количество хороших роботов
-    private int countEnemy = 5;          // количество плохих роботов
+    @InputSimulationParam public int countPhilistine = 300;   // количество обычных роботов
+    @InputSimulationParam public int countGoodBoy = 30;       // количество хороших роботов
+    @InputSimulationParam public int countEnemy = 5;          // количество плохих роботов
 
-    private Integer positionSeed;
-    private Integer roboInitSeed;
+    @InputSimulationParam public double confidenceGoodBoy = 0.1;
+
+    @InputSimulationParam public Integer positionSeed;
+    @InputSimulationParam public Integer roboInitSeed;
 
     @Override
     public void init() {
@@ -47,6 +52,7 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
         int rows  = (int) Math.ceil((double) N / cols);
 
         // TODO: Random с getSeed(). А то костыль ужвсный глаз мозолит
+        // TODO: Random с возможностью задать диапазон с нижней границе
         Random positionRandom;
         Random roboInitRandom;
         if (positionSeed != null) positionRandom = new Random(positionSeed);
@@ -67,7 +73,7 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             while (true) {
                 X = (int)(300 + positionRandom.nextInt(cols) * (4 + criticalDist));
                 Y = (int)(400 + positionRandom.nextInt(rows) * (4 + criticalDist));
-                if (!chekRobotXY(X, Y)) break;
+                if (!checkRobotXY(X, Y)) break;
             }
             AnyLogicRobot robot = (AnyLogicRobot) conf.newRobotInstance();
             robot.setCriticalDist(criticalDist);
@@ -118,17 +124,33 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
     @Override
     public void setSimulationParam(HashMap<String, String> param) {
         super.setSimulationParam(param);
-        if (param.get("criticalDist") != null) criticalDist = Double.parseDouble(param.get("criticalDist"));
-        if (param.get("activeDist") != null) activeDist = Double.parseDouble(param.get("activeDist"));
-        if (param.get("positionSeed") != null) positionSeed = Integer.parseInt(param.get("positionSeed"));
-        if (param.get("poboInitSeed") != null) roboInitSeed = Integer.parseInt(param.get("poboInitSeed"));
-        if (param.get("countPhilistine") != null) countPhilistine = Integer.parseInt(param.get("countPhilistine"));
-        if (param.get("countGoodBoy") != null) countGoodBoy = Integer.parseInt(param.get("countGoodBoy"));
-        if (param.get("countEnemy") != null) countEnemy = Integer.parseInt(param.get("countEnemy"));
+
+        if (param.get("allRandom") != null && Boolean.parseBoolean(param.get("allRandom"))) {
+            Random random = new Random();
+            criticalDist = 1;
+            activeDist = 1;
+            countPhilistine = 1;
+            countGoodBoy = 1;
+            countEnemy = 1;
+            confidenceGoodBoy = random.nextDouble();
+            while (confidenceGoodBoy < 0.1)
+                confidenceGoodBoy = random.nextDouble();
+        } else {
+            if (param.get("criticalDist") != null) criticalDist = Double.parseDouble(param.get("criticalDist"));
+            if (param.get("activeDist") != null) activeDist = Double.parseDouble(param.get("activeDist"));
+            if (param.get("positionSeed") != null) positionSeed = Integer.parseInt(param.get("positionSeed"));
+            if (param.get("poboInitSeed") != null) roboInitSeed = Integer.parseInt(param.get("poboInitSeed"));
+            if (param.get("countPhilistine") != null) countPhilistine = Integer.parseInt(param.get("countPhilistine"));
+            if (param.get("countGoodBoy") != null) countGoodBoy = Integer.parseInt(param.get("countGoodBoy"));
+            if (param.get("countEnemy") != null) countEnemy = Integer.parseInt(param.get("countEnemy"));
+
+            if (param.get("confidenceGoodBoy") != null)
+                confidenceGoodBoy = Double.parseDouble(param.get("confidenceGoodBoy"));
+        }
     }
 
     // только для инициализации. потом не будет
-    private boolean chekRobotXY(int X, int Y) {
+    private boolean checkRobotXY(int X, int Y) {
         for (Robot robot : robots)
             if (robot.getX() == X && robot.getY() == Y)
                 return true;
