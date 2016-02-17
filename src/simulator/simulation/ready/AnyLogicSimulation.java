@@ -20,6 +20,7 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
     private int countEnemy = 5;          // количество плохих роботов
 
     private double confidenceGoodBoy = 0.1;
+    private double distBetweenRobot = criticalDist;
 
     private Integer positionSeed;
     private Integer roboInitSeed;
@@ -67,8 +68,8 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
         for (int i = 0; i < N; i++) {
             int X, Y;
             while (true) {
-                X = (int)(300 + positionRandom.nextInt(cols) * (4 + criticalDist));
-                Y = (int)(400 + positionRandom.nextInt(rows) * (4 + criticalDist));
+                X = (int)(300 + positionRandom.nextInt(cols) * (4 + distBetweenRobot));
+                Y = (int)(400 + positionRandom.nextInt(rows) * (4 + distBetweenRobot));
                 if (!checkRobotXY(X, Y)) break;
             }
             AnyLogicRobot robot = (AnyLogicRobot) conf.newRobotInstance();
@@ -139,17 +140,18 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             countGoodBoy = (int)((double)N / 100 * percentGoodBoys);
             countEnemy = (int)((double)N / 100 * percentEnemies);
             countPhilistine = N - countEnemy - countGoodBoy;
-        } else {
-            if (param.get("criticalDist") != null) criticalDist = Double.parseDouble(param.get("criticalDist"));
-            if (param.get("activeDist") != null) activeDist = Double.parseDouble(param.get("activeDist"));
-            if (param.get("positionSeed") != null) positionSeed = Integer.parseInt(param.get("positionSeed"));
-            if (param.get("poboInitSeed") != null) roboInitSeed = Integer.parseInt(param.get("poboInitSeed"));
-            if (param.get("countPhilistine") != null) countPhilistine = Integer.parseInt(param.get("countPhilistine"));
-            if (param.get("countGoodBoy") != null) countGoodBoy = Integer.parseInt(param.get("countGoodBoy"));
-            if (param.get("countEnemy") != null) countEnemy = Integer.parseInt(param.get("countEnemy"));
-            if (param.get("confidenceGoodBoy") != null)
-                confidenceGoodBoy = Double.parseDouble(param.get("confidenceGoodBoy"));
         }
+        if (param.get("criticalDist") != null) criticalDist = Double.parseDouble(param.get("criticalDist"));
+        if (param.get("activeDist") != null) activeDist = Double.parseDouble(param.get("activeDist"));
+        if (param.get("positionSeed") != null) positionSeed = Integer.parseInt(param.get("positionSeed"));
+        if (param.get("poboInitSeed") != null) roboInitSeed = Integer.parseInt(param.get("poboInitSeed"));
+        if (param.get("countPhilistine") != null) countPhilistine = Integer.parseInt(param.get("countPhilistine"));
+        if (param.get("countGoodBoy") != null) countGoodBoy = Integer.parseInt(param.get("countGoodBoy"));
+        if (param.get("countEnemy") != null) countEnemy = Integer.parseInt(param.get("countEnemy"));
+        if (param.get("distBetweenRobot") != null)
+            distBetweenRobot = Double.parseDouble(param.get("distBetweenRobot"));
+        if (param.get("confidenceGoodBoy") != null)
+            confidenceGoodBoy = Double.parseDouble(param.get("confidenceGoodBoy"));
     }
 
     // только для инициализации. потом не будет

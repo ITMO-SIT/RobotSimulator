@@ -4,14 +4,17 @@
     <SingleSimulation>
         <ConstParam param = "name" value = "Расстояние 4"/>
         <ConstParam param = "criticalDist" value = "4"/>
-        <ConstParam param = "activeDist" value = "20"/>
+        <ConstParam param = "activeDist" value = "150"/>
         <ConstParam param = "positionRandom" value = "666"/>
         <ConstParam param = "roboInitRandom" value = "666"/>
+        <ConstParam param = "distBetweenRobot" value = "10"/>
     </SingleSimulation>
 
     <SingleSimulation>
         <ConstParam param = "name" value = "Рандомный сценарий"/>
-        <ConstParam param = "allRandom" value = "true"/>
+        <ConstParam param = "allRandom" value = "true"/>            <!-- Все параметры будут рандомными-->
+
+        <ConstParam param = "distBetweenRobot" value = "10"/>       <!-- Кроме distBetweenRobot. Его значение будет 10 всегда-->
     </SingleSimulation>
 
     <RepeatSimulation>
@@ -25,6 +28,7 @@
         <ConstParam param = "countPhilistine" value = "300"/>
         <ConstParam param = "countGoodBoy" value = "30"/>
         <ConstParam param = "countEnemy" value = "5"/>
+        <ConstParam param = "confidenceGoodBoy" value = "0.3"/>
     </RepeatSimulation>
 
     <InfinitySimulation>
