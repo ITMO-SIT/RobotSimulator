@@ -7,6 +7,7 @@ import simulator.simulation.Simulation;
 import simulator.simulation.SimulationStatus;
 import simulator.target.Target;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -35,14 +36,43 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
         Target target = conf.newTargetInstance();
         target.setX(0);
         target.setY(0);
-        target.setSize(100);
+        target.setSize(100, 100);
+        target.setColor(new Color(50, 250, 50, 150));
         targets.add(target);
 
         target = conf.newTargetInstance();
-        target.setX(800);
+        target.setX(900);
         target.setY(0);
-        target.setSize(100);
+        target.setSize(100, 100);
         targets.add(target);
+
+        // верхний костыль. Хорошая цель
+        target = conf.newTargetInstance();
+        target.setX(100);
+        target.setY(0);
+        target.setSize(400, 5);
+        target.setColor(new Color(50, 250, 50, 150));
+        targets.add(target);
+        // верхний костыль. Плохая цель
+        target = conf.newTargetInstance();
+        target.setX(500);
+        target.setY(0);
+        target.setSize(500, 5);
+        targets.add(target);
+        // боковой костыль. Хорошая цель
+        target = conf.newTargetInstance();
+        target.setX(0);
+        target.setY(100);
+        target.setSize(5, 200);
+        target.setColor(new Color(50, 250, 50, 150));
+        targets.add(target);
+        // боковой костыль. Плохая цель
+        target = conf.newTargetInstance();
+        target.setX(995);
+        target.setY(100);
+        target.setSize(5, 200);
+        targets.add(target);
+
 
         int N = countPhilistine + countGoodBoy + countEnemy;
 
@@ -116,8 +146,14 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
         str.append(countEnemy).append(" ");
         str.append(confidenceGoodBoy).append(" ");
 
-        str.append(targets.get(0).toString()).append(" ");
-        str.append(targets.get(1).toString()).append(" ");
+        int leftTarget  = Integer.parseInt(targets.get(0).toString()) +
+                          Integer.parseInt(targets.get(2).toString()) +
+                          Integer.parseInt(targets.get(4).toString());
+        int rightTarget = Integer.parseInt(targets.get(1).toString()) +
+                          Integer.parseInt(targets.get(3).toString()) +
+                          Integer.parseInt(targets.get(5).toString());
+        str.append(leftTarget).append(" ");
+        str.append(rightTarget).append(" ");
         return str.toString();
     }
 
