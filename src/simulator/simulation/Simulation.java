@@ -1,6 +1,5 @@
 package simulator.simulation;
 
-import simulator.helper.InputSimulationParam;
 import simulator.helper.Observable;
 import simulator.helper.Observer;
 import simulator.field.Field;
@@ -13,19 +12,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.function.Supplier;
 
 abstract public class Simulation<R extends Robot> implements Runnable, Observable {
 // ---------------------- поля класса ---------------------- //
-    protected int     delay;
-//    protected String  name;
+    protected int delay;
     protected SimulationStatus status;
 
+    // TODO: инкапсулировать все поля, что ниже
     protected final ArrayList<R>      robots;
     protected final ArrayList<Target> targets;
     protected Field field;
 
-    protected final ConcurrentLinkedQueue<Observer> observers;
+    private final ConcurrentLinkedQueue<Observer> observers;
+    private String pathRobotClass;
+    private String pathTargetClass;
+    private String pathFieldClass;
 // ---------------------- поля класса ---------------------- //
 // ------------------- абстрактные методы ------------------ //
     abstract public void init();
@@ -36,12 +37,17 @@ abstract public class Simulation<R extends Robot> implements Runnable, Observabl
         robots    = new ArrayList<>();
         targets   = new ArrayList<>();
         observers = new ConcurrentLinkedQueue<>();
-        delay = 0;
-//        name = "Симуляция";
         status = SimulationStatus.NOT_INITIALIZED;
+        delay  = 0;
     }
 
     public void setSimulationParam(HashMap<String, String> param) {
+
+        if (param.get("robot") != null) pathRobotClass  = param.get("robot");
+        if (param.get("target")!= null) pathTargetClass = param.get("target");
+        if (param.get("field") != null) pathFieldClass  = param.get("field");
+
+
 //        if (param.get("name") != null) name = param.get("name");
 //        java.lang.reflect.Field[] fields = this.getClass().getDeclaredFields();
 //        for (java.lang.reflect.Field field : fields) {
@@ -82,13 +88,35 @@ abstract public class Simulation<R extends Robot> implements Runnable, Observabl
     public void pause() {status = SimulationStatus.PAUSE;}
     public void end()   {status = SimulationStatus.ENDED;}
 
-    public final ArrayList<R>  getRobots()  {return robots;}
+    public final ArrayList<R>  getRobots()  {
+        robots.iterator();
+        return robots;
+    }
     public final ArrayList<Target> getTargets() {return targets;}
     public final SimulationStatus  getStatus()  {return status;}
-    public final Field   getField() {return field;}
-//    public final String  getName()  {return name;}
+    public final Field getField() {return field;}
 
     public void setDelay(int delay) {this.delay = delay;}
+
+
+    // TODO: обработку исключений
+    protected final R createRobot() throws Exception {
+        R robot = ClassStorage.getInstance().<R>newClassInstance(pathRobotClass);
+        robots.add(robot);
+        return robot;
+    }
+
+    protected final List<R> createRobot(int count) throws Exception {
+        List<R> robots = ClassStorage.getInstance().<R>newClassInstance(pathRobotClass, count);
+        this.robots.addAll(robots);
+        return robots;
+    }
+
+    protected final Target createTarget() throws Exception {
+        Target target = ClassStorage.getInstance().<Target>newClassInstance(pathTargetClass);
+        targets.add(target);
+        return target;
+    }
 
     // ------------- реализация интерфейса Observable ---------- //
     @Override

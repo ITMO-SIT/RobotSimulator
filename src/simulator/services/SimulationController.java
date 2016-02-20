@@ -6,7 +6,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import simulator.helper.Observable;
 import simulator.helper.Observer;
-import simulator.simulation.Simulation;
 import simulator.simulation.wrapper.RepeatSimulation;
 import simulator.simulation.wrapper.SimulationWrapper;
 import simulator.simulation.wrapper.SingleSimulation;
@@ -19,12 +18,16 @@ import java.util.HashMap;
 public class SimulationController {
 
     private ArrayList<SimulationWrapper> wrappers;
+
+    // TODO: объеденить в context и передовать wrapper'ам.
     private ThreadController threadController;
+    private ClassStorage     classStorage;
 
     public SimulationController() {
-        wrappers = new ArrayList<>();
+        wrappers         = new ArrayList<>();
         threadController = new ThreadController();
-        parseXMLFile("testConfiguration.xml");
+        classStorage     = ClassStorage.getInstance();
+        loadXMLFile("testConfiguration.xml");
     }
 
 
@@ -46,21 +49,25 @@ public class SimulationController {
 
 //---------------------------------------------------------------------------------//
 
-    private void parseXMLFile(String path) {
+    private void loadXMLFile(String path) {
         try {
             Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new File(path));
             NodeList nodes;
 
             nodes = doc.getElementsByTagName("SingleSimulation");
-            for (int i =0, len = nodes.getLength(); i < len; i++) {
+            for (int i = 0, len = nodes.getLength(); i < len; i++) {
                 Element elm = (Element) nodes.item(i);
-                wrappers.add(new SingleSimulation(parseConstParam(elm)));
+                HashMap<String, String> params = parseConstParam(elm);
+                params.putAll(parseClasses(elm));
+                wrappers.add(new SingleSimulation(params));
             }
 
             nodes = doc.getElementsByTagName("RepeatSimulation");
-            for (int i =0, len = nodes.getLength(); i < len; i++) {
+            for (int i = 0, len = nodes.getLength(); i < len; i++) {
                 Element elm = (Element) nodes.item(i);
-                wrappers.add(new RepeatSimulation(parseConstParam(elm)));
+                HashMap<String, String> params = parseConstParam(elm);
+                params.putAll(parseClasses(elm));
+                wrappers.add(new RepeatSimulation(params));
             }
 
 
@@ -75,6 +82,22 @@ public class SimulationController {
         for (int i = 0, len = nodes.getLength(); i < len; i++) {
             NamedNodeMap map = nodes.item(i).getAttributes();
             params.put(map.getNamedItem("param").getTextContent(), map.getNamedItem("value").getTextContent());
+        }
+        return params;
+    }
+
+    private HashMap<String, String> parseClasses(Element node) {
+        HashMap<String, String> params = new HashMap<>();
+        NodeList nodes = node.getElementsByTagName("Class");
+        for (int i = 0, len = nodes.getLength(); i < len; i++) {
+            NamedNodeMap map = nodes.item(i).getAttributes();
+            String path = map.getNamedItem("value").getTextContent();
+            params.put(map.getNamedItem("type").getTextContent(), path);
+            try {
+                classStorage.loadClass(path);
+            } catch (ClassNotFoundException err) {
+                System.out.println("ERROR: класс " + path + " не найден");
+            }
         }
         return params;
     }

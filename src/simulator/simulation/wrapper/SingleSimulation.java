@@ -3,7 +3,7 @@ package simulator.simulation.wrapper;
 import simulator.helper.Observable;
 import simulator.helper.Observer;
 import simulator.helper.SimulatorEvent;
-import simulator.services.Configuration;
+import simulator.services.ClassStorage;
 import simulator.simulation.Simulation;
 
 import java.util.HashMap;
@@ -13,14 +13,17 @@ public class SingleSimulation extends SimulationWrapper {
     protected Simulation simulation;
 
     public SingleSimulation(HashMap<String, String> constParam) {
-        simulation = Configuration.getInstance().newSimulationInstance();
-        simulation.setSimulationParam(constParam);
-        simulation.addObserver(this);
-
-        if (constParam.get("name") != null)
-            name = constParam.get("name");
-        else
-            name = "симуляция";
+        name = "Симуляция";
+        super.setParam(constParam);
+        try {
+            simulation = ClassStorage.getInstance().newClassInstance(pathSimulation);
+            simulation.setSimulationParam(constParam);
+            simulation.addObserver(this);
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException err) {
+            System.out.println("ERROR: не удалось создать симуляцию.");
+        } /*catch (ClassCastException e) {
+            System.out.println("ERROR: cannot cast.");
+        }*/
     }
 
     @Override

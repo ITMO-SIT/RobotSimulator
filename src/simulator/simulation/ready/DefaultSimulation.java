@@ -1,6 +1,5 @@
 package simulator.simulation.ready;
 
-import simulator.services.Configuration;
 import simulator.robot.Robot;
 import simulator.simulation.Simulation;
 import simulator.simulation.SimulationStatus;
@@ -10,31 +9,33 @@ public class DefaultSimulation extends Simulation<Robot> {
 
     @Override
     public void init() {
-        Configuration conf = Configuration.getInstance();
-
         robots.clear();
         targets.clear();
+        try {
+            Target target = createTarget();
+            target.setX(0);
+            target.setY(0);
+            target.setSize(100);
+            targets.add(target);
+        } catch (Exception ignore) {}
 
-        Target target = conf.newTargetInstance();
-        target.setX(0);
-        target.setY(0);
-        target.setSize(100);
-        targets.add(target);
-
-        target = conf.newTargetInstance();
-        target.setX(800);
-        target.setY(0);
-        target.setSize(100);
-        targets.add(target);
+        try {
+            Target target = createTarget();
+            target.setX(800);
+            target.setY(0);
+            target.setSize(100);
+            targets.add(target);
+        } catch (Exception ignore) {}
 
         for (int i = 0; i < 20; i++)
             for (int j = 0; j < 15; j++) {
-                Robot robot = conf.newRobotInstance();
-                robot.setX(300 + i * 10);
-                robot.setY(400 + j * 10);
-                robot.setSpeed(2);
-                targets.forEach(robot::addTarget);
-                robots.add(robot);
+                try {
+                    Robot robot = createRobot();
+                    robot.setX(300 + i * 10);
+                    robot.setY(400 + j * 10);
+                    robot.setSpeed(2);
+                    targets.forEach(robot::addTarget);
+                } catch (Exception ignore) {}
             }
         status = SimulationStatus.INITIALIZED;
     }

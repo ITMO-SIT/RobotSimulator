@@ -4,14 +4,13 @@ package simulator.simulation.wrapper;
 import simulator.helper.Observable;
 import simulator.helper.Observer;
 import simulator.helper.SimulatorEvent;
-import simulator.services.Configuration;
+import simulator.services.ClassStorage;
 import simulator.simulation.Simulation;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
 public class RepeatSimulation extends SimulationWrapper {
 
@@ -23,11 +22,10 @@ public class RepeatSimulation extends SimulationWrapper {
 
     public RepeatSimulation(HashMap<String, String> constParam) {
         this.constParam = constParam;
+        simulations = new LinkedList<>();
+        name = "Серия симуляций";
+        super.setParam(constParam);
 
-        if (constParam.get("name") != null)
-            name = constParam.get("name");
-        else
-            name = "Серия симуляций";
 
         if (constParam.get("reps") == null) count = 25;
         else {
@@ -40,9 +38,6 @@ public class RepeatSimulation extends SimulationWrapper {
                 out = new FileWriter(new File(constParam.get("resultFilePath")));
             } catch (Exception ignore) {}
         }
-
-
-        simulations = new LinkedList<>();
     }
 
     @Override
@@ -53,16 +48,21 @@ public class RepeatSimulation extends SimulationWrapper {
     @Override
     public Simulation start() {
         if (count != 0) {
-            count--;
-            System.out.println(name + " осталось " + count);
-            Simulation simulation = Configuration.getInstance().newSimulationInstance();
-            simulation.setSimulationParam(constParam);
-            simulation.init();
-            simulation.addObserver(this);
-            simulation.start();
-            notifyObservers(SimulatorEvent.WRAPPER_WORK);
-            simulations.add(simulation);
-            return simulation;
+            try {
+                Simulation simulation = ClassStorage.getInstance().<Simulation>newClassInstance(pathSimulation);
+                simulation.setSimulationParam(constParam);
+                simulation.init();
+                simulation.addObserver(this);
+                simulation.start();
+                notifyObservers(SimulatorEvent.WRAPPER_WORK);
+                simulations.add(simulation);
+
+                count--;
+                System.out.println(name + " осталось " + count);
+                return simulation;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

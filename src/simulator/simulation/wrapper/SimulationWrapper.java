@@ -5,12 +5,15 @@ import simulator.helper.Observer;
 import simulator.helper.SimulatorEvent;
 import simulator.simulation.Simulation;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 abstract public class SimulationWrapper implements Observable, Observer {
 
     protected String name;
+    protected String pathSimulation;
+
     private List<Observer> observers;
 
     protected SimulationWrapper() {
@@ -21,20 +24,25 @@ abstract public class SimulationWrapper implements Observable, Observer {
     abstract public Simulation start();
     abstract public Observable addSimulationObserver(Observer observer);
 
+    public void setParam(HashMap<String, String> param) {
+        if (param.get("name") != null) name = param.get("name");
+        if (param.get("simulation") != null) pathSimulation = param.get("simulation");
+    }
+
     public String getName() {return name;}
 
     @Override
-    public void addObserver(Observer observer) {
+    public final void addObserver(Observer observer) {
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(Observer observer) {
+    public final void removeObserver(Observer observer) {
         observers.remove(observer);
     }
 
     @Override
-    public void notifyObservers(SimulatorEvent event) {
+    public final void notifyObservers(SimulatorEvent event) {
         for (Observer observer : observers)
             observer.update(this, event);
     }
