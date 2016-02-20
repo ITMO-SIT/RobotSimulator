@@ -6,6 +6,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import simulator.helper.Observable;
 import simulator.helper.Observer;
+import simulator.simulation.wrapper.InfinitySimulation;
 import simulator.simulation.wrapper.RepeatSimulation;
 import simulator.simulation.wrapper.SimulationWrapper;
 import simulator.simulation.wrapper.SingleSimulation;
@@ -77,7 +78,9 @@ public class SimulationController {
             nodes = doc.getElementsByTagName("InfinitySimulation");
             for (int i =0, len = nodes.getLength(); i < len; i++) {
                 Element elm = (Element) nodes.item(i);
-                wrappers.add(new InfinitySimulation(parseConstParam(elm)));
+                HashMap<String, String> params = parseConstParam(elm);
+                params.putAll(parseClasses(elm));
+                wrappers.add(new InfinitySimulation(params));
             }
 
         } catch (Exception e) {

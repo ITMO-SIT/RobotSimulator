@@ -1,14 +1,10 @@
 package simulator.simulation.wrapper;
 
-
 import simulator.helper.Observable;
 import simulator.helper.Observer;
 import simulator.helper.SimulatorEvent;
-import simulator.services.ClassStorage;
 import simulator.simulation.Simulation;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -18,25 +14,16 @@ public class RepeatSimulation extends SimulationWrapper {
     private HashMap<String, String> constParam;
     private LinkedList<Simulation> simulations;
 
-    private FileWriter out;           // TODO: заменить на ResultController
-
     public RepeatSimulation(HashMap<String, String> constParam) {
         this.constParam = constParam;
         simulations = new LinkedList<>();
         name = "Серия симуляций";
         super.setParam(constParam);
 
-
         if (constParam.get("reps") == null) count = 25;
         else {
             count = Integer.parseInt(constParam.get("reps"));
             // TODO: удаление параметра reps из constParam, после написания класса MutableParam
-        }
-
-        if (constParam.get("resultFilePath") != null) {
-            try {
-                out = new FileWriter(new File(constParam.get("resultFilePath")));
-            } catch (Exception ignore) {}
         }
     }
 
@@ -49,7 +36,7 @@ public class RepeatSimulation extends SimulationWrapper {
     public Simulation start() {
         if (count != 0) {
             try {
-                Simulation simulation = ClassStorage.getInstance().<Simulation>newClassInstance(pathSimulation);
+                Simulation simulation = createSimulation();
                 simulation.setSimulationParam(constParam);
                 simulation.init();
                 simulation.addObserver(this);
@@ -79,7 +66,6 @@ public class RepeatSimulation extends SimulationWrapper {
         if (event == SimulatorEvent.SIMULATION_END) {
             if (out != null) {
                 try {
-//                    System.out.println(observable.toString());
                     out.write(observable.toString());
                     out.append('\n');
                     out.flush();

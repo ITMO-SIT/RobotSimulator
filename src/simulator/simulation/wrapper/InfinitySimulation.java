@@ -4,11 +4,8 @@ package simulator.simulation.wrapper;
 import simulator.helper.Observable;
 import simulator.helper.Observer;
 import simulator.helper.SimulatorEvent;
-import simulator.services.Configuration;
 import simulator.simulation.Simulation;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -18,24 +15,12 @@ public class InfinitySimulation extends SimulationWrapper {
     private HashMap<String, String> constParam;
     private LinkedList<Simulation> simulations;
 
-    private FileWriter out;
-
     public InfinitySimulation(HashMap<String, String> constParam) {
         this.constParam = constParam;
         simulations = new LinkedList<>();
         isActive = false;
-
-        if (constParam.get("name") != null)
-            name = constParam.get("name");
-        else
-            name = "Серия симуляций";
-
-        if (constParam.get("resultFilePath") != null) {
-            try {
-                out = new FileWriter(new File(constParam.get("resultFilePath")));
-            } catch (Exception ignore) {}
-        }
-
+        name = "<Бесконечная серия симуляций";
+        super.setParam(constParam);
     }
 
     @Override
@@ -50,14 +35,16 @@ public class InfinitySimulation extends SimulationWrapper {
     @Override
     public Simulation start() {
         if (isActive) {
-            Simulation simulation = Configuration.getInstance().newSimulationInstance();
-            simulation.setSimulationParam(constParam);
-            simulation.init();
-            simulation.addObserver(this);
-            simulation.start();
-            notifyObservers(SimulatorEvent.WRAPPER_WORK);
-            simulations.add(simulation);
-            return simulation;
+            try {
+                Simulation simulation = createSimulation();
+                simulation.setSimulationParam(constParam);
+                simulation.init();
+                simulation.addObserver(this);
+                simulation.start();
+                notifyObservers(SimulatorEvent.WRAPPER_WORK);
+                simulations.add(simulation);
+                return simulation;
+            } catch (Exception ignore) {}
         }
         return null;
     }

@@ -22,8 +22,8 @@ public class DefaultRobot extends Robot {
         double dist = Double.MAX_VALUE;
         double angle = 0f;
         for (Target target : targets) {
-            double tempX = x - target.getX() - target.getSize() / 2;
-            double tempY = y - target.getY() - target.getSize() / 2;
+            double tempX = x - target.getCenterX();
+            double tempY = y - target.getCenterY();
             double temp = Math.sqrt(Math.pow(tempX, 2) + Math.pow(tempY, 2));
             if (temp < dist) {
                 dist = temp;

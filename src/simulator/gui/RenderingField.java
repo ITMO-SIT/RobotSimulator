@@ -39,7 +39,7 @@ public class RenderingField extends JPanel implements Observer {
             robot.draw(g);
     }
 
-
+    @SuppressWarnings("unchecked")
     public void setSimulation(Simulation sim) {
         if (simulation != null) {
             simulation.removeObserver(this);
@@ -49,5 +49,6 @@ public class RenderingField extends JPanel implements Observer {
         simulation.setDelay(25);
         robots  = simulation.getRobots();
         targets = simulation.getTargets();
+        repaint();
     }
 }

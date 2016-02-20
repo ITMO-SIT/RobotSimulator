@@ -7,9 +7,8 @@ import simulator.simulation.Simulation;
 import simulator.simulation.SimulationStatus;
 import simulator.target.Target;
 
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Random;
+import java.awt.Color;
+import java.util.*;
 
 public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
 
@@ -36,10 +35,11 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             target.setX(0);
             target.setY(0);
             target.setSize(100);
+            target.setColor(new Color(50, 250, 50, 150));
         } catch (Exception ignore) {}
         try {
             Target target = createTarget();
-            target.setX(800);
+            target.setX(900);
             target.setY(0);
             target.setSize(100);
         } catch (Exception ignore) {}
@@ -74,12 +74,6 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             target.setY(100);
             target.setSize(5, 200);
         } catch (Exception ignore) {}
-
-
-        int N = countPhilistine + countGoodBoy + countEnemy;
-
-        int cols = 20;
-        int rows  = (int) Math.ceil((double) N / cols);
 
         // TODO: Random с getSeed(). А то костыль ужвсный глаз мозолит
         // TODO: Random с возможностью задать диапазон с нижней границе

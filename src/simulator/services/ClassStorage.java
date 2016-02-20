@@ -1,14 +1,9 @@
 package simulator.services;
 
-import simulator.robot.DefaultRobot;
-import simulator.robot.Robot;
-import simulator.simulation.Simulation;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
 public class ClassStorage {
     // TODO: почитать про ClassLoader

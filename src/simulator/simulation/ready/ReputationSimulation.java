@@ -1,9 +1,10 @@
-package simulator.simulation;
+package simulator.simulation.ready;
 
 
 import simulator.robot.Robot;
 import simulator.services.Configuration;
 import simulator.robot.ReputationRobot;
+import simulator.simulation.Simulation;
 import simulator.target.DefaultTarget;
 import simulator.target.Target;
 

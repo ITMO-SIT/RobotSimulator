@@ -1,7 +1,7 @@
 package simulator.robot;
 
 
-import simulator.simulation.ReputationSimulation;
+import simulator.simulation.ready.ReputationSimulation;
 
 import java.util.ArrayList;
 import java.util.Random;

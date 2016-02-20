@@ -21,8 +21,6 @@ abstract public class Target {
 
     public double getX() {return x;}
     public double getY() {return y;}
-    @Deprecated
-    public double getSize() {return width;}
 
     public double getWidth() {return width;}
     public double getHeight() {return height;}

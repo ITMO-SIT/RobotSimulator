@@ -16,10 +16,10 @@ public class SingleSimulation extends SimulationWrapper {
         name = "Симуляция";
         super.setParam(constParam);
         try {
-            simulation = ClassStorage.getInstance().newClassInstance(pathSimulation);
+            simulation = createSimulation();
             simulation.setSimulationParam(constParam);
             simulation.addObserver(this);
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException err) {
+        } catch (Exception err) {
             System.out.println("ERROR: не удалось создать симуляцию.");
         } /*catch (ClassCastException e) {
             System.out.println("ERROR: cannot cast.");
