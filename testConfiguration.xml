@@ -12,9 +12,19 @@
         <Class type = "robot" value = "simulator.robot.AnyLogicRobot"/>
         <Class type = "target" value = "simulator.target.CountTarget"/>
 
-        <ConstParam param = "name" value = "Тестовая симуляция"/>
+        <ConstParam param = "name" value = "test"/>
 
-        <RandomParam paaram = "countPhilistine" min_val = "100" max_val = "1000"/>
+        <ConstParam param = "allRandom" value = "true"/>
+    </SingleSimulation>
+
+    <SingleSimulation>
+        <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
+        <Class type = "robot" value = "simulator.robot.AnyLogicRobot"/>
+        <Class type = "target" value = "simulator.target.CountTarget"/>
+
+        <ConstParam param = "name" type = "string" value = "Тестовая симуляция"/>
+
+        <RandomParam paaram = "countPhilistine" type = "int" min_val = "100" max_val = "1000"/>
     </SingleSimulation>
 
     <RepeatSimulation>
@@ -22,7 +32,7 @@
         <Class type = "robot" value = "simulator.robot.AnyLogicRobot"/>
         <Class type = "target" value = "simulator.target.CountTarget"/>
 
-        <ConstParam param = "name" value = "Тестовая серия симуляций"/>
-        <ConstParam param = "resultFilePath" value = "result.txt" />
+        <ConstParam param = "name" type = "string" value = "Тестовая серия симуляций"/>
+        <ConstParam param = "resultFilePath" type = "string" value = "result.txt" />
     </RepeatSimulation>
 </list>
