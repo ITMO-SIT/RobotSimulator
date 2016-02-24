@@ -1,5 +1,6 @@
 package simulator.simulation.ready;
 
+import simulator.robot.AnyLogicRobotConfidence;
 import simulator.services.Configuration;
 import simulator.robot.AnyLogicRobot;
 import simulator.robot.Robot;
@@ -25,6 +26,10 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
 
     private Integer positionSeed;
     private Integer roboInitSeed;
+
+    // для AnyLogicRobotConfidence
+    private double deltaW = 0.05;
+    private double m = 0.99;
 
     @Override
     public void init() {
@@ -120,6 +125,10 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             }
             else
                 robot.setRobotType(AnyLogicRobot.Type.enemy);
+            if (robot instanceof AnyLogicRobotConfidence) { // FIXME
+                ((AnyLogicRobotConfidence) robot).setM(m);
+                ((AnyLogicRobotConfidence) robot).setDeltaW(deltaW);
+            }
         }
         status = SimulationStatus.INITIALIZED;
     }
@@ -176,6 +185,9 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             countGoodBoy = (int)((double)N / 100 * percentGoodBoys);
             countEnemy = (int)((double)N / 100 * percentEnemies);
             countPhilistine = N - countEnemy - countGoodBoy;
+
+            deltaW = random.nextDouble() * (0.25 - 0.05) + 0.05;
+            m = random.nextDouble() * (0.99 - 0.5) + 0.5;
         }
         if (param.get("criticalDist") != null) criticalDist = Double.parseDouble(param.get("criticalDist"));
         if (param.get("activeDist") != null) activeDist = Double.parseDouble(param.get("activeDist"));
@@ -188,6 +200,9 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             distBetweenRobot = Double.parseDouble(param.get("distBetweenRobot"));
         if (param.get("confidenceGoodBoy") != null)
             confidenceGoodBoy = Double.parseDouble(param.get("confidenceGoodBoy"));
+
+        if (param.get("deltaW") != null) deltaW = Double.parseDouble(param.get("deltaW"));
+        if (param.get("m") != null) m = Double.parseDouble(param.get("m"));
     }
 
     // только для инициализации. потом не будет
