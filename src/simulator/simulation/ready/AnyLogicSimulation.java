@@ -62,7 +62,7 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
         target = conf.newTargetInstance();
         target.setX(500);
         target.setY(0);
-        target.setSize(500, 5);
+        target.setSize(400, 5);
         targets.add(target);
         // боковой костыль. Хорошая цель
         target = conf.newTargetInstance();
@@ -154,6 +154,7 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
         str.append(countGoodBoy).append(" ");
         str.append(countEnemy).append(" ");
         str.append(confidenceGoodBoy).append(" ");
+        str.append(distBetweenRobot).append(" ");
 
         int leftTarget  = Integer.parseInt(targets.get(0).toString()) +
                           Integer.parseInt(targets.get(2).toString()) +
@@ -172,9 +173,11 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
 
         if (param.get("allRandom") != null && Boolean.parseBoolean(param.get("allRandom"))) {
             Random random = new Random();
-            activeDist = random.nextDouble() * (30 - 10) + 10;
+            activeDist = random.nextDouble() * (20 - 2) + 2;
             criticalDist = random.nextDouble() * (5 - 1) + 1;
             confidenceGoodBoy = random.nextDouble() * (1.0 - 0.1) + 0.1;
+
+            distBetweenRobot = random.nextDouble() * (activeDist - criticalDist) + criticalDist;
 
             int N = random.nextInt(901) + 100;
             int percentGoodBoys = random.nextInt(51) + 1;
