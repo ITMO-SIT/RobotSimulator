@@ -1,6 +1,7 @@
 package simulator.simulation.ready;
 
 
+import simulator.helper.params.SimulationParam;
 import simulator.robot.Robot;
 import simulator.services.Configuration;
 import simulator.robot.ReputationRobot;
@@ -189,13 +190,13 @@ public class ReputationSimulation extends Simulation<ReputationRobot> {
     }
 
     @Override
-    public void setSimulationParam(HashMap<String, String> param) {
+    public void setSimulationParam(HashMap<String, SimulationParam> param) {
         super.setSimulationParam(param);
-        if (param.get("number_of_robots") != null) N = Integer.parseInt(param.get("number_of_robots"));
-        if (param.get("number_of_targets") != null) M = Integer.parseInt(param.get("number_of_targets"));
-        if (param.get("number_of_diversionists") != null) diversionists = Integer.parseInt(param.get("number_of_diversionists"));
-        if (param.get("limit_reputation") != null) limreputation = Double.parseDouble(param.get("limit_reputation"));
-        if (param.get("active_distance") != null) activeDist = Double.parseDouble(param.get("active_distance"));
+        if (param.get("number_of_robots") != null) N = param.get("number_of_robots").getValue();
+        if (param.get("number_of_targets") != null) M = param.get("number_of_targets").getValue();
+        if (param.get("number_of_diversionists") != null) diversionists = param.get("number_of_diversionists").getValue();
+        if (param.get("limit_reputation") != null) limreputation = param.get("limit_reputation").getValue();
+        if (param.get("active_distance") != null) activeDist = param.get("active_distance").getValue();
     }
 
     private boolean checkRobotXY(int X, int Y) {

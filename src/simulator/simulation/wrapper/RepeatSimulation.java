@@ -3,6 +3,7 @@ package simulator.simulation.wrapper;
 import simulator.helper.Observable;
 import simulator.helper.Observer;
 import simulator.helper.SimulatorEvent;
+import simulator.helper.params.SimulationParam;
 import simulator.simulation.Simulation;
 
 import java.util.HashMap;
@@ -11,18 +12,18 @@ import java.util.LinkedList;
 public class RepeatSimulation extends SimulationWrapper {
 
     private int count;
-    private HashMap<String, String> constParam;
+    private HashMap<String, SimulationParam> simParam;
     private LinkedList<Simulation> simulations;
 
-    public RepeatSimulation(HashMap<String, String> constParam) {
-        this.constParam = constParam;
+    public RepeatSimulation(HashMap<String, SimulationParam> simParam) {
+        this.simParam = simParam;
         simulations = new LinkedList<>();
         name = "Серия симуляций";
-        super.setParam(constParam);
+        super.setParam(simParam);
 
-        if (constParam.get("reps") == null) count = 25;
+        if (simParam.get("reps") == null) count = 25;
         else {
-            count = Integer.parseInt(constParam.get("reps"));
+            count = simParam.get("reps").getValue();
             // TODO: удаление параметра reps из constParam, после написания класса MutableParam
         }
     }
@@ -37,7 +38,7 @@ public class RepeatSimulation extends SimulationWrapper {
         if (count != 0) {
             try {
                 Simulation simulation = createSimulation();
-                simulation.setSimulationParam(constParam);
+                simulation.setSimulationParam(simParam);
                 simulation.init();
                 simulation.addObserver(this);
                 simulation.start();

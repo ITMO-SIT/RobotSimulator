@@ -4,6 +4,7 @@ package simulator.simulation.wrapper;
 import simulator.helper.Observable;
 import simulator.helper.Observer;
 import simulator.helper.SimulatorEvent;
+import simulator.helper.params.SimulationParam;
 import simulator.simulation.Simulation;
 
 import java.util.HashMap;
@@ -12,15 +13,15 @@ import java.util.LinkedList;
 public class InfinitySimulation extends SimulationWrapper {
 
     private boolean isActive;
-    private HashMap<String, String> constParam;
+    private HashMap<String, SimulationParam> simParam;
     private LinkedList<Simulation> simulations;
 
-    public InfinitySimulation(HashMap<String, String> constParam) {
-        this.constParam = constParam;
+    public InfinitySimulation(HashMap<String, SimulationParam> simParam) {
+        this.simParam = simParam;
         simulations = new LinkedList<>();
         isActive = false;
         name = "<Бесконечная серия симуляций";
-        super.setParam(constParam);
+        super.setParam(simParam);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class InfinitySimulation extends SimulationWrapper {
         if (isActive) {
             try {
                 Simulation simulation = createSimulation();
-                simulation.setSimulationParam(constParam);
+                simulation.setSimulationParam(simParam);
                 simulation.init();
                 simulation.addObserver(this);
                 simulation.start();

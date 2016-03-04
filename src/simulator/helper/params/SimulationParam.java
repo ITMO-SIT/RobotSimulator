@@ -9,8 +9,9 @@ import org.w3c.dom.Node;
 
 abstract public class SimulationParam {
 
-    protected enum Type {INT, LONG, FLOAT, DOUBLE, STRING, ERROR;
-        public static Type parseString(String str) {
+    public enum ParamType {CONST, RANDOM}
+    public enum ValueType {INT, LONG, FLOAT, DOUBLE, STRING, ERROR;
+        public static ValueType parseString(String str) {
             switch (str) {
                 case "int"    : return INT;
                 case "long"   : return LONG;
@@ -20,8 +21,8 @@ abstract public class SimulationParam {
                 default: return ERROR;
             }
         }
-        public static Object parseValue(Type type, String str) {
-            switch (type) {
+        public static Object parseValue(ValueType valueType, String str) {
+            switch (valueType) {
                 case INT:    return Integer.parseInt(str);
                 case LONG:   return Long.parseLong(str);
                 case FLOAT:  return Float.parseFloat(str);
@@ -31,23 +32,37 @@ abstract public class SimulationParam {
             }
         }
     }
-    protected Type type;
+    protected ValueType valueType;
 
     public abstract <T> T getValue();
 
+    // Было бы хорошо отвязать фабрику от входных параметов типа Node
     @SuppressWarnings("unchecked")
-    public static SimulationParam createParam(Node node) {
+    public static SimulationParam createParamByNode(Node node) {
         SimulationParam newObject = null;
         NamedNodeMap attr = node.getAttributes();
-        Type type = Type.parseString(attr.getNamedItem("type").getTextContent());
+        ValueType valueType = ValueType.parseString(attr.getNamedItem("type").getTextContent());
         switch (node.getNodeName()) {
             case "ConstParam" :
-                newObject = new ConstParam(Type.parseValue(type, attr.getNamedItem("value").getTextContent()));
+                newObject = new ConstParam(ValueType.parseValue(valueType, attr.getNamedItem("value").getTextContent()));
                 break;
             case "RandomParam" :
-                Object min = Type.parseValue(type, attr.getNamedItem("min_val").getTextContent());
-                Object max = Type.parseValue(type, attr.getNamedItem("max_val").getTextContent());
-                newObject = new RandomParam(type, min, max);
+                Object min = ValueType.parseValue(valueType, attr.getNamedItem("min_val").getTextContent());
+                Object max = ValueType.parseValue(valueType, attr.getNamedItem("max_val").getTextContent());
+                newObject = new RandomParam(valueType, min, max);
+                break;
+        }
+        return newObject;
+    }
+
+    public static SimulationParam createParam(ParamType paramType, ValueType valueType, Object ... values) {
+        SimulationParam newObject = null;
+        switch (paramType) {
+            case CONST:
+                newObject = new ConstParam(values[0]);
+                break;
+            case RANDOM:
+                newObject = new RandomParam(valueType, values[0], values[1]);
                 break;
         }
         return newObject;

@@ -4,6 +4,7 @@ import simulator.helper.Observable;
 import simulator.helper.Observer;
 import simulator.field.Field;
 import simulator.helper.SimulatorEvent;
+import simulator.helper.params.SimulationParam;
 import simulator.robot.Robot;
 import simulator.services.ClassStorage;
 import simulator.target.Target;
@@ -41,11 +42,10 @@ abstract public class Simulation<R extends Robot> implements Runnable, Observabl
         delay  = 0;
     }
 
-    public void setSimulationParam(HashMap<String, String> param) {
-
-        if (param.get("robot") != null) pathRobotClass  = param.get("robot");
-        if (param.get("target")!= null) pathTargetClass = param.get("target");
-        if (param.get("field") != null) pathFieldClass  = param.get("field");
+    public void setSimulationParam(HashMap<String, SimulationParam> param) {
+        if (param.get("robot") != null) pathRobotClass  = param.get("robot") .getValue();
+        if (param.get("target")!= null) pathTargetClass = param.get("target").getValue();
+        if (param.get("field") != null) pathFieldClass  = param.get("field") .getValue();
 
 
 //        if (param.get("name") != null) name = param.get("name");

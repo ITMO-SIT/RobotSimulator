@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <list>
-
-    <SingleSimulation>
-        <Class type = "simulation" value = "simulator.simulation.ready.DefaultSimulation"/>
-        <Class type = "robot" value = "simulator.robot.DefaultRobot"/>
-        <Class type = "target" value = "simulator.target.CountTarget"/>
-    </SingleSimulation>
-
-    <SingleSimulation>
-        <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
-        <Class type = "robot" value = "simulator.robot.AnyLogicRobot"/>
-        <Class type = "target" value = "simulator.target.CountTarget"/>
-
-        <ConstParam param = "name" value = "test"/>
-
-        <ConstParam param = "allRandom" value = "true"/>
-    </SingleSimulation>
-
     <SingleSimulation>
         <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
         <Class type = "robot" value = "simulator.robot.AnyLogicRobot"/>
@@ -24,15 +7,22 @@
 
         <ConstParam param = "name" type = "string" value = "Тестовая симуляция"/>
 
-        <RandomParam paaram = "countPhilistine" type = "int" min_val = "100" max_val = "1000"/>
+        <ConstParam param = "activeDist" type = "double" value = "17.5"/>
+        <RandomParam param = "countPhilistine" type = "int" min_val = "100" max_val = "1000"/>
     </SingleSimulation>
 
     <RepeatSimulation>
         <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
-        <Class type = "robot" value = "simulator.robot.AnyLogicRobot"/>
-        <Class type = "target" value = "simulator.target.CountTarget"/>
+        <Class type = "robot"      value = "simulator.robot.AnyLogicRobot"/>
+        <Class type = "target"     value = "simulator.target.CountTarget"/>
 
         <ConstParam param = "name" type = "string" value = "Тестовая серия симуляций"/>
+        <ConstParam param = "reps" type = "int"    value = "50" />
         <ConstParam param = "resultFilePath" type = "string" value = "result.txt" />
+
+        <ConstParam param = "activeDist" type = "double" value = "17.5"/>
+        <RandomParam param = "criticalDist"      type = "double" min_val = "1" max_val = "7"/>
+        <RandomParam param = "countPhilistine"   type = "int"    min_val = "100" max_val = "300"/>
+        <RandomParam param = "confidenceGoodBoy" type = "double" min_val = "0.1" max_val = "1"/>
     </RepeatSimulation>
 </list>

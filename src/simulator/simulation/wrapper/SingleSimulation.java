@@ -3,6 +3,7 @@ package simulator.simulation.wrapper;
 import simulator.helper.Observable;
 import simulator.helper.Observer;
 import simulator.helper.SimulatorEvent;
+import simulator.helper.params.SimulationParam;
 import simulator.services.ClassStorage;
 import simulator.simulation.Simulation;
 
@@ -12,18 +13,18 @@ public class SingleSimulation extends SimulationWrapper {
 
     protected Simulation simulation;
 
-    public SingleSimulation(HashMap<String, String> constParam) {
+    public SingleSimulation(HashMap<String, SimulationParam> param) {
         name = "Симуляция";
-        super.setParam(constParam);
+        super.setParam(param);
         try {
             simulation = createSimulation();
-            simulation.setSimulationParam(constParam);
+            simulation.setSimulationParam(param);
             simulation.addObserver(this);
+        } catch (ClassCastException e) {
+            System.out.println("ERROR: cannot cast.");
         } catch (Exception err) {
             System.out.println("ERROR: не удалось создать симуляцию.");
-        } /*catch (ClassCastException e) {
-            System.out.println("ERROR: cannot cast.");
-        }*/
+        }
     }
 
     @Override
@@ -63,6 +64,7 @@ public class SingleSimulation extends SimulationWrapper {
         if (event == SimulatorEvent.SIMULATION_END) {
             observable.removeObserver(this);
             notifyObservers(SimulatorEvent.WRAPPER_END);
+            System.out.printf(observable.toString());
         }
     }
 }

@@ -1,11 +1,9 @@
 package simulator.services;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import simulator.helper.Observable;
 import simulator.helper.Observer;
+import simulator.helper.params.SimulationParam;
 import simulator.simulation.wrapper.InfinitySimulation;
 import simulator.simulation.wrapper.RepeatSimulation;
 import simulator.simulation.wrapper.SimulationWrapper;
@@ -62,7 +60,7 @@ public class SimulationController {
             nodes = doc.getElementsByTagName("SingleSimulation");
             for (int i = 0, len = nodes.getLength(); i < len; i++) {
                 Element elm = (Element) nodes.item(i);
-                HashMap<String, String> params = parseConstParam(elm);
+                HashMap<String, SimulationParam> params = parseParam(elm);
                 params.putAll(parseClasses(elm));
                 wrappers.add(new SingleSimulation(params));
             }
@@ -70,7 +68,7 @@ public class SimulationController {
             nodes = doc.getElementsByTagName("RepeatSimulation");
             for (int i = 0, len = nodes.getLength(); i < len; i++) {
                 Element elm = (Element) nodes.item(i);
-                HashMap<String, String> params = parseConstParam(elm);
+                HashMap<String, SimulationParam> params = parseParam(elm);
                 params.putAll(parseClasses(elm));
                 wrappers.add(new RepeatSimulation(params));
             }
@@ -78,7 +76,7 @@ public class SimulationController {
             nodes = doc.getElementsByTagName("InfinitySimulation");
             for (int i =0, len = nodes.getLength(); i < len; i++) {
                 Element elm = (Element) nodes.item(i);
-                HashMap<String, String> params = parseConstParam(elm);
+                HashMap<String, SimulationParam> params = parseParam(elm);
                 params.putAll(parseClasses(elm));
                 wrappers.add(new InfinitySimulation(params));
             }
@@ -88,25 +86,30 @@ public class SimulationController {
         }
     }
 
-    private HashMap<String, String> parseConstParam(Element node) {
-        HashMap<String, String> params = new HashMap<>();
-        NodeList nodes = node.getElementsByTagName("ConstParam");
+    private HashMap<String, SimulationParam> parseParam(Element node) {
+        HashMap<String, SimulationParam> params = new HashMap<>();
+        NodeList nodes = node.getChildNodes();
         for (int i = 0, len = nodes.getLength(); i < len; i++) {
-            NamedNodeMap map = nodes.item(i).getAttributes();
-            params.put(map.getNamedItem("param").getTextContent(), map.getNamedItem("value").getTextContent());
+            Node child = nodes.item(i);
+            if (child.getNodeType() == Node.ELEMENT_NODE && !child.getNodeName().equals("Class")) {
+                String key = child.getAttributes().getNamedItem("param").getTextContent();
+                params.put(key, SimulationParam.createParamByNode(child));
+            }
         }
         return params;
     }
 
-    private HashMap<String, String> parseClasses(Element node) {
-        HashMap<String, String> params = new HashMap<>();
+    private  HashMap<String, SimulationParam> parseClasses(Element node) {
+        HashMap<String, SimulationParam> params = new HashMap<>();
         NodeList nodes = node.getElementsByTagName("Class");
         for (int i = 0, len = nodes.getLength(); i < len; i++) {
             NamedNodeMap map = nodes.item(i).getAttributes();
             String path = map.getNamedItem("value").getTextContent();
-            params.put(map.getNamedItem("type").getTextContent(), path);
             try {
                 classStorage.loadClass(path);
+                params.put(map.getNamedItem("type").getTextContent(),
+                        SimulationParam.createParam(SimulationParam.ParamType.CONST,
+                                SimulationParam.ValueType.STRING, path));
             } catch (ClassNotFoundException err) {
                 System.out.println("ERROR: класс " + path + " не найден");
             }

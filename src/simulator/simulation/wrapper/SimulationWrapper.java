@@ -3,6 +3,7 @@ package simulator.simulation.wrapper;
 import simulator.helper.Observable;
 import simulator.helper.Observer;
 import simulator.helper.SimulatorEvent;
+import simulator.helper.params.SimulationParam;
 import simulator.services.ClassStorage;
 import simulator.simulation.Simulation;
 
@@ -29,12 +30,12 @@ abstract public class SimulationWrapper implements Observable, Observer {
     abstract public Simulation start();
     abstract public Observable addSimulationObserver(Observer observer);
 
-    public void setParam(HashMap<String, String> param) {
-        if (param.get("name") != null) name = param.get("name");
-        if (param.get("simulation") != null) pathSimulationClass = param.get("simulation");
+    public void setParam(HashMap<String, SimulationParam> param) {
+        if (param.get("name") != null) name = param.get("name").getValue();
+        if (param.get("simulation") != null) pathSimulationClass = param.get("simulation").getValue();
         if (param.get("resultFilePath") != null) {
             try {
-                out = new FileWriter(new File(param.get("resultFilePath")));
+                out = new FileWriter(new File(param.get("resultFilePath").<String>getValue()));
             } catch (IOException err) {
                 System.err.println(err.getMessage());
             }
