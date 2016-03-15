@@ -9,7 +9,7 @@ import org.w3c.dom.Node;
 
 abstract public class SimulationParam {
 
-    public enum ParamType {CONST, RANDOM}
+    public enum ParamType {CONST, RANDOM, MUTABLE}
     public enum ValueType {INT, LONG, FLOAT, DOUBLE, STRING, ERROR;
         public static ValueType parseString(String str) {
             switch (str) {
@@ -51,6 +51,12 @@ abstract public class SimulationParam {
                 Object max = ValueType.parseValue(valueType, attr.getNamedItem("max_val").getTextContent());
                 newObject = new RandomParam(valueType, min, max);
                 break;
+            case "MutableParam" :
+                min = ValueType.parseValue(valueType, attr.getNamedItem("min_val").getTextContent());
+                max = ValueType.parseValue(valueType, attr.getNamedItem("max_val").getTextContent());
+                Object step = ValueType.parseValue(valueType, attr.getNamedItem("step").getTextContent());
+                newObject = new MutableParam(valueType, min, max, step);
+                break;
         }
         return newObject;
     }
@@ -63,6 +69,9 @@ abstract public class SimulationParam {
                 break;
             case RANDOM:
                 newObject = new RandomParam(valueType, values[0], values[1]);
+                break;
+            case MUTABLE:
+                newObject = new MutableParam(valueType, values[0], values[1], values[2]);
                 break;
         }
         return newObject;
