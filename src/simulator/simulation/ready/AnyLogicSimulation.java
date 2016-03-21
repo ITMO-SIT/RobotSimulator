@@ -1,5 +1,6 @@
 package simulator.simulation.ready;
 
+import simulator.field.Field;
 import simulator.helper.InputSimulationParam;
 import simulator.helper.params.SimulationParam;
 import simulator.robot.AnyLogicRobot;
@@ -28,6 +29,16 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
 
     @Override
     public void init() {
+
+        try {
+            Field field = createField();
+            field.setHeight(1500);
+            field.setWidth(1000);
+        } catch (Exception err) {
+            err.printStackTrace();
+        }
+
+
         robots.clear();
         targets.clear();
 
@@ -58,7 +69,7 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             Target target = createTarget();
             target.setX(500);
             target.setY(0);
-            target.setSize(500, 5);
+            target.setSize(400, 5);
         } catch (Exception ignore) {}
         // боковой костыль. Хорошая цель
         try {

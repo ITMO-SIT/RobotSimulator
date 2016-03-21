@@ -2,19 +2,50 @@
 <list>
     <SingleSimulation>
         <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
-        <Class type = "robot" value = "simulator.robot.AnyLogicRobot"/>
+        <Class type = "robot"  value = "simulator.robot.AnyLogicRobot"/>
         <Class type = "target" value = "simulator.target.CountTarget"/>
+        <Class type = "field"  value = "simulator.field.DefaultField"/>
+
+        <ConstParam param = "name" type = "string" value = "Тестовая симуляция"/>
+
+        <ConstParam param="countGoodBoy"    type = "int" value="1"/>
+        <ConstParam param="countEnemy"      type = "int" value="1"/>
+        <ConstParam param="countPhilistine" type = "int" value="0"/>
+        <ConstParam param = "confidenceGoodBoy" type = "double" value = "1"/>
+    </SingleSimulation>
+
+
+    <SingleSimulation>
+        <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
+        <Class type = "robot"  value = "simulator.robot.AnyLogicRobot"/>
+        <Class type = "target" value = "simulator.target.CountTarget"/>
+        <Class type = "field"  value = "simulator.field.DefaultField"/>
 
         <ConstParam param = "name" type = "string" value = "Тестовая симуляция"/>
 
         <ConstParam param = "activeDist" type = "double" value = "17.5"/>
         <RandomParam param = "countPhilistine" type = "int" min_val = "100" max_val = "1000"/>
+        <ConstParam param = "confidenceGoodBoy" type = "double" value = "1"/>
+
+        <ConstParam param="countGoodBoy"    type = "int" value="0"/>
+        <ConstParam param="countEnemy"      type = "int" value="0"/>
+        <ConstParam param="countPhilistine" type = "int" value="1000"/>
+    </SingleSimulation>
+
+    <SingleSimulation>
+        <Class type = "simulation" value = "simulator.simulation.ready.DefaultSimulation"/>
+        <Class type = "robot"  value = "simulator.robot.DefaultRobot"/>
+        <Class type = "target" value = "simulator.target.DefaultTarget"/>
+        <Class type = "field"  value = "simulator.field.DefaultField"/>
+
+        <ConstParam param = "name" type = "string" value = "Тестовая симуляция 2"/>
     </SingleSimulation>
 
     <RepeatSimulation>
         <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
-        <Class type = "robot"      value = "simulator.robot.AnyLogicRobot"/>
-        <Class type = "target"     value = "simulator.target.CountTarget"/>
+        <Class type = "robot"  value = "simulator.robot.AnyLogicRobot"/>
+        <Class type = "target" value = "simulator.target.CountTarget"/>
+        <Class type = "field"  value = "simulator.field.DefaultField"/>
 
         <ConstParam param = "name" type = "string" value = "Тестовая серия симуляций"/>
         <ConstParam param = "reps" type = "int"    value = "50" />
@@ -28,8 +59,9 @@
 
     <RepeatSimulation>
         <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
-        <Class type = "robot"      value = "simulator.robot.AnyLogicRobot"/>
-        <Class type = "target"     value = "simulator.target.CountTarget"/>
+        <Class type = "robot"  value = "simulator.robot.AnyLogicRobot"/>
+        <Class type = "target" value = "simulator.target.CountTarget"/>
+        <Class type = "field"  value = "simulator.field.DefaultField"/>
 
         <ConstParam param = "name" type = "string" value = "Тестовая №1"/>
         <ConstParam param = "reps" type = "int"    value = "50" />

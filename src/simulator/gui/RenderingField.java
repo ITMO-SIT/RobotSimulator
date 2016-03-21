@@ -49,6 +49,7 @@ public class RenderingField extends JPanel implements Observer {
         simulation.setDelay(25);
         robots  = simulation.getRobots();
         targets = simulation.getTargets();
-        repaint();
+        setPreferredSize(new Dimension(simulation.getField().getWidth(), simulation.getField().getHeight()));
+        updateUI();
     }
 }

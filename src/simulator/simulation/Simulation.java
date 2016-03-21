@@ -118,6 +118,11 @@ abstract public class Simulation<R extends Robot> implements Runnable, Observabl
         return target;
     }
 
+    protected final Field createField() throws Exception {
+        field = ClassStorage.getInstance().<Field>newClassInstance(pathFieldClass);
+        return field;
+    }
+
     // ------------- реализация интерфейса Observable ---------- //
     @Override
     public final void addObserver(Observer observer) {

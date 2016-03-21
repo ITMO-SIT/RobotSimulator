@@ -35,6 +35,9 @@ public class AnyLogicRobot extends Robot {
     public void draw(Graphics g) {
         g.setColor(color);
         g.fillOval((int)x - 2, (int)y - 2, 4, 4);
+
+
+//        g.drawLine((int)x, (int)y, (int)(x + 15 * Math.cos(teta)), (int)(y + 15 * Math.sin(teta)));
 //        if (wF == 1 || wT != 0)
 //            g.drawOval((int)(x - activeDist), (int)(y - activeDist),
 //                       (int)activeDist * 2, (int) activeDist * 2);
@@ -80,7 +83,7 @@ public class AnyLogicRobot extends Robot {
     public void doStep() {
         if (!isActive) return;
         targets.stream().filter(target -> target.contains(x, y)).forEach(target -> targetDone());
-        if (x < 0 || y < 0 || x > 1000 || y > 800) {
+        if (!simulation.getField().contains(x, y)) {
             isActive = false;
             return;
         }
@@ -89,8 +92,13 @@ public class AnyLogicRobot extends Robot {
         calcH();
         calcCorrectDist();
         calcG();
-        calcTeta();
-//        teta = teta !=0 ?  teta : RANDOM.nextDouble()* Math.PI / 2; // Зачем?!
+//        calcTeta();
+
+        double tempX = wT * gT.getX() + wF * gF.getX() + (1 - wT - wF)*h.getX();
+        double tempY = wT * gT.getY() + wF * gF.getY() + (1 - wT - wF)*h.getY();
+        teta = Math.atan(tempY / tempX);
+        if (tempX < 0) teta -= Math.PI;
+
 
         double v = speed;
         if (neighborsInSector(teta))

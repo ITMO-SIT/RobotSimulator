@@ -1,6 +1,5 @@
 package simulator.gui.item;
 
-import com.sun.istack.internal.NotNull;
 import simulator.gui.SimulationList;
 import simulator.helper.Observable;
 import simulator.helper.Observer;
@@ -12,14 +11,11 @@ import java.awt.*;
 
 public class SingleSimulationView extends JPanel implements Observer {
 
-    private SimulationWrapper wrapper;
-
     private SimulationList parent;
     private JLabel lbl_status;
 
     public SingleSimulationView(SimulationList list, SimulationWrapper wrapper) {
         parent = list;
-        this.wrapper = wrapper;
 
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
