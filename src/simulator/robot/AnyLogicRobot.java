@@ -125,7 +125,7 @@ public class AnyLogicRobot extends Robot {
     }
 
     // скорее всего в будущем реализация данного метода отойдет к симуляции
-    private void findNeighbors() {
+    protected void findNeighbors() {
         neighbors.clear();
         for (AnyLogicRobot robot : (ArrayList<AnyLogicRobot>)simulation.getRobots()) {
             if (robot == this) continue;
@@ -136,7 +136,7 @@ public class AnyLogicRobot extends Robot {
         }
     }
 
-    private boolean neighborsInSector(double angle) {
+    protected boolean neighborsInSector(double angle) {
         double d = criticalDist;
         double x1 = x + Math.cos(angle) * d;
         double y1 = y + Math.sin(angle) * d;
@@ -223,7 +223,7 @@ public class AnyLogicRobot extends Robot {
         return false;
     }
 
-    private void calcTeta() {
+    protected void calcTeta() {
         double tempX = wT * gT.getX() + wF * gF.getX() + (1 - wT - wF)*h.getX();
         double tempY = wT * gT.getY() + wF * gF.getY() + (1 - wT - wF)*h.getY();
         if (tempX == 0) teta = 0;
@@ -235,7 +235,7 @@ public class AnyLogicRobot extends Robot {
         }
     }
 
-    private void calcG() {
+    protected void calcG() {
         Target target = targets.get(0);
         double tempX = target.getCenterX() - x;
         double tempY = target.getCenterY() - y;
@@ -249,7 +249,7 @@ public class AnyLogicRobot extends Robot {
         gF.setLocation(tempX / dist, tempY / dist);
     }
 
-    private void calcH() {
+    protected void calcH() {
         double sumCos = 0;
         double sumSin = 0;
         if (neighbors.isEmpty()) return;
@@ -260,7 +260,7 @@ public class AnyLogicRobot extends Robot {
         h.setLocation(sumCos / neighbors.size(), sumSin / neighbors.size());
     }
 
-    private void calcCorrectDist() {
+    protected void calcCorrectDist() {
         double corrDistX = 0;
         double corrDistY = 0;
         int count = 1;      // очень странное место
@@ -281,7 +281,7 @@ public class AnyLogicRobot extends Robot {
         h.setLocation(h.getX() + corrDistX / 10, h.getY() + corrDistY / 10);
     }
 
-    private double calcHypotenuse(double x,double y) {
+    protected double calcHypotenuse(double x,double y) {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 

@@ -41,6 +41,7 @@ public class RenderingField extends JPanel implements Observer {
 
     @SuppressWarnings("unchecked")
     public void setSimulation(Simulation sim) {
+        if (sim == null) return;
         if (simulation != null) {
             simulation.removeObserver(this);
             simulation.setDelay(0);

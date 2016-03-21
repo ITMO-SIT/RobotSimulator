@@ -11,10 +11,9 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
 
         final RenderingField canvas  = new RenderingField();
-        SimulationList simList = new SimulationList(canvas);
+        final SimulationList simList = new SimulationList(canvas);
 
         add(simList, BorderLayout.EAST);
-        canvas.setBorder(BorderFactory.createLineBorder(Color.RED));
         add(new JScrollPane(canvas));
 
         setVisible(true);

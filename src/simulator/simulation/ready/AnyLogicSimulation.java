@@ -1,5 +1,7 @@
 package simulator.simulation.ready;
 
+import simulator.robot.AnyLogicRobotConfidence;
+import simulator.services.Configuration;
 import simulator.field.Field;
 import simulator.helper.InputSimulationParam;
 import simulator.helper.params.SimulationParam;
@@ -26,6 +28,10 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
 
     @InputSimulationParam private Integer positionSeed;
     @InputSimulationParam private Integer roboInitSeed;
+
+    // для AnyLogicRobotConfidence
+    private double deltaW = 0.05;
+    private double m = 0.99;
 
     @Override
     public void init() {
@@ -137,6 +143,10 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             }
             else
                 robot.setRobotType(AnyLogicRobot.Type.enemy);
+            if (robot instanceof AnyLogicRobotConfidence) { // FIXME
+                ((AnyLogicRobotConfidence) robot).setM(m);
+                ((AnyLogicRobotConfidence) robot).setDeltaW(deltaW);
+            }
             i++;
         }
         status = SimulationStatus.INITIALIZED;
@@ -163,6 +173,7 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
         str.append(countGoodBoy).append(" ");
         str.append(countEnemy).append(" ");
         str.append(confidenceGoodBoy).append(" ");
+        str.append(distBetweenRobot).append(" ");
 
         int leftTarget  = Integer.parseInt(targets.get(0).toString()) +
                           Integer.parseInt(targets.get(2).toString()) +
