@@ -17,7 +17,7 @@
 
     <SingleSimulation>
         <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
-        <Class type = "robot"  value = "simulator.robot.AnyLogicRobot"/>
+        <Class type = "robot"  value = "simulator.robot.RobotConfidenceAlgA"/>
         <Class type = "target" value = "simulator.target.CountTarget"/>
         <Class type = "field"  value = "simulator.field.DefaultField"/>
 
@@ -27,9 +27,12 @@
         <RandomParam param = "countPhilistine" type = "int" min_val = "100" max_val = "1000"/>
         <ConstParam param = "confidenceGoodBoy" type = "double" value = "1"/>
 
-        <ConstParam param="countGoodBoy"    type = "int" value="0"/>
-        <ConstParam param="countEnemy"      type = "int" value="0"/>
+        <ConstParam param="countGoodBoy"    type = "int" value="50"/>
+        <ConstParam param="countEnemy"      type = "int" value="10"/>
         <ConstParam param="countPhilistine" type = "int" value="1000"/>
+
+        <ConstParam param="mu"     type="double" value="0.75"/>
+        <ConstParam param="deltaW" type="double" value="0.05"/>
     </SingleSimulation>
 
     <SingleSimulation>

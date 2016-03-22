@@ -1,11 +1,34 @@
 package simulator.robot;
 
-abstract public class AnyLogicRobotConfidence extends AnyLogicRobot {
+public class RobotConfidenceAlgB extends AnyLogicRobotConfidence {
 
-    protected double mu = 0.99;
-    protected double deltaW = 0.05;
+    @Override
+    protected void calcW() {
+        if (!neighbors.isEmpty() && robotType != Type.enemy) {
+            double normaG1 = calcHypotenuse(gT.getX(), gT.getY());
+            double normaG2 = calcHypotenuse(gF.getX(), gF.getY());
+            double normaH = calcHypotenuse(h.getX(), h.getY());
+            double cosG1H = (h.getX() * gT.getX() + h.getY() * gT.getY()) / normaH / normaG1;
+            double cosG2H = (h.getX() * gF.getX() + h.getY() * gF.getY()) / normaH / normaG2;
 
-    protected abstract void calcW();
+            if (cosG1H >= mu) {
+                wT += deltaW;
+                wF -= deltaW;
+                if (wT > 1) wT = 1;
+                if (wF < 0) wF = 0;
+            } else if (cosG2H >= mu) {
+                wT -= deltaW;
+                wF += deltaW;
+                if (wT < 0) wT = 0;
+                if (wF > 1) wF = 1;
+            } else {
+                wT -= deltaW;
+                wF -= deltaW;
+                if (wT < 0) wT = 0;
+                if (wF < 0) wF = 0;
+            }
+        }
+    }
 
     @Override
     public void doStep() {
@@ -17,10 +40,8 @@ abstract public class AnyLogicRobotConfidence extends AnyLogicRobot {
 
         findNeighbors();
         calcH();
-        calcCorrectDist();
         calcG();
         calcW();
-//        calcTeta();
 
         double tempX = wT * gT.getX() + wF * gF.getX() + (1 - wT - wF)*h.getX();
         double tempY = wT * gT.getY() + wF * gF.getY() + (1 - wT - wF)*h.getY();
@@ -44,8 +65,6 @@ abstract public class AnyLogicRobotConfidence extends AnyLogicRobot {
 
         x += Math.cos(teta) * v;
         y += Math.sin(teta) * v;
-    }
 
-    public void setM(double m) {this.mu = m;}
-    public void setDeltaW(double deltaW) {this.deltaW = deltaW;}
+    }
 }

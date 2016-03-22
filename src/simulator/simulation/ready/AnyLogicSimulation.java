@@ -1,7 +1,6 @@
 package simulator.simulation.ready;
 
 import simulator.robot.AnyLogicRobotConfidence;
-import simulator.services.Configuration;
 import simulator.field.Field;
 import simulator.helper.InputSimulationParam;
 import simulator.helper.params.SimulationParam;
@@ -30,8 +29,8 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
     @InputSimulationParam private Integer roboInitSeed;
 
     // для AnyLogicRobotConfidence
-    private double deltaW = 0.05;
-    private double m = 0.99;
+    @InputSimulationParam private double deltaW = 0.05;
+    @InputSimulationParam private double mu = 0.99;
 
     @Override
     public void init() {
@@ -144,7 +143,7 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             else
                 robot.setRobotType(AnyLogicRobot.Type.enemy);
             if (robot instanceof AnyLogicRobotConfidence) { // FIXME
-                ((AnyLogicRobotConfidence) robot).setM(m);
+                ((AnyLogicRobotConfidence) robot).setM(mu);
                 ((AnyLogicRobotConfidence) robot).setDeltaW(deltaW);
             }
             i++;
@@ -199,6 +198,9 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
         if (param.get("countEnemy")   != null)   countEnemy   = param.get("countEnemy").getValue();
         if (param.get("distBetweenRobot") != null)  distBetweenRobot  = param.get("distBetweenRobot").getValue();
         if (param.get("confidenceGoodBoy") != null) confidenceGoodBoy = param.get("confidenceGoodBoy").getValue();
+
+        if (param.get("mu")     != null) mu     = param.get("mu").getValue();
+        if (param.get("deltaW") != null) deltaW = param.get("deltaW").getValue();
     }
 
     // только для инициализации. потом не будет
