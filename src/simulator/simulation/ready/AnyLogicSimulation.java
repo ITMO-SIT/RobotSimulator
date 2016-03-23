@@ -189,10 +189,13 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
     public void setSimulationParam(HashMap<String, SimulationParam> param) {
         super.setSimulationParam(param);
 
+        if (param.get("positionSeed") != null) positionSeed = param.get("positionSeed").getValue();
+        else positionSeed = null;
+        if (param.get("poboInitSeed") != null) roboInitSeed = param.get("poboInitSeed").getValue();
+        else roboInitSeed = null;
+
         if (param.get("criticalDist") != null)   criticalDist = param.get("criticalDist").getValue();
         if (param.get("activeDist")   != null)   activeDist   = param.get("activeDist").getValue();
-        if (param.get("positionSeed") != null)   positionSeed = param.get("positionSeed").getValue();
-        if (param.get("poboInitSeed") != null)   roboInitSeed = param.get("poboInitSeed").getValue();
         if (param.get("countPhilistine") != null)countPhilistine = param.get("countPhilistine").getValue();
         if (param.get("countGoodBoy") != null)   countGoodBoy = param.get("countGoodBoy").getValue();
         if (param.get("countEnemy")   != null)   countEnemy   = param.get("countEnemy").getValue();

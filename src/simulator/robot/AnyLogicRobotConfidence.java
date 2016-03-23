@@ -5,6 +5,8 @@ abstract public class AnyLogicRobotConfidence extends AnyLogicRobot {
     protected double mu = 0.99;
     protected double deltaW = 0.05;
 
+    protected int countIter = 0;
+
     protected abstract void calcW();
 
     @Override
@@ -19,7 +21,8 @@ abstract public class AnyLogicRobotConfidence extends AnyLogicRobot {
         calcH();
         calcCorrectDist();
         calcG();
-        calcW();
+        if (countIter > 15)
+            calcW();
 //        calcTeta();
 
         double tempX = wT * gT.getX() + wF * gF.getX() + (1 - wT - wF)*h.getX();
@@ -44,6 +47,8 @@ abstract public class AnyLogicRobotConfidence extends AnyLogicRobot {
 
         x += Math.cos(teta) * v;
         y += Math.sin(teta) * v;
+
+        countIter++;
     }
 
     public void setM(double m) {this.mu = m;}

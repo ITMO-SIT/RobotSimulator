@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <list>
-    <SingleSimulation>
-        <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
-        <Class type = "robot"  value = "simulator.robot.AnyLogicRobot"/>
-        <Class type = "target" value = "simulator.target.CountTarget"/>
-        <Class type = "field"  value = "simulator.field.DefaultField"/>
-
-        <ConstParam param = "name" type = "string" value = "Тестовая симуляция"/>
-
-        <ConstParam param="countGoodBoy"    type = "int" value="1"/>
-        <ConstParam param="countEnemy"      type = "int" value="1"/>
-        <ConstParam param="countPhilistine" type = "int" value="0"/>
-        <ConstParam param = "confidenceGoodBoy" type = "double" value = "1"/>
-    </SingleSimulation>
-
 
     <SingleSimulation>
         <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
@@ -23,13 +9,12 @@
 
         <ConstParam param = "name" type = "string" value = "Тестовая симуляция"/>
 
-        <ConstParam param = "activeDist" type = "double" value = "17.5"/>
-        <RandomParam param = "countPhilistine" type = "int" min_val = "100" max_val = "1000"/>
+        <ConstParam param = "activeDist" type = "double" value = "20"/>
         <ConstParam param = "confidenceGoodBoy" type = "double" value = "1"/>
 
         <ConstParam param="countGoodBoy"    type = "int" value="50"/>
-        <ConstParam param="countEnemy"      type = "int" value="10"/>
-        <ConstParam param="countPhilistine" type = "int" value="1000"/>
+        <ConstParam param="countEnemy"      type = "int" value="15"/>
+        <ConstParam param="countPhilistine" type = "int" value="500"/>
 
         <ConstParam param="mu"     type="double" value="0.75"/>
         <ConstParam param="deltaW" type="double" value="0.05"/>

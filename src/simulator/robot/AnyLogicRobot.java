@@ -37,7 +37,7 @@ public class AnyLogicRobot extends Robot {
         g.fillOval((int)x - 2, (int)y - 2, 4, 4);
 
 
-//        g.drawLine((int)x, (int)y, (int)(x + 15 * Math.cos(teta)), (int)(y + 15 * Math.sin(teta)));
+        g.drawLine((int)x, (int)y, (int)(x + 15 * Math.cos(teta)), (int)(y + 15 * Math.sin(teta)));
 //        if (wF == 1 || wT != 0)
 //            g.drawOval((int)(x - activeDist), (int)(y - activeDist),
 //                       (int)activeDist * 2, (int) activeDist * 2);
@@ -65,12 +65,13 @@ public class AnyLogicRobot extends Robot {
         gT = new Point2D.Double(targets.get(0).getCenterX(), targets.get(0).getCenterY());
         gF = new Point2D.Double(targets.get(1).getCenterX(), targets.get(1).getCenterY());
 
-        h = new Point2D.Double(RANDOM.nextDouble() - 0.5, 0.2 - RANDOM.nextDouble());
+        h = new Point2D.Double(0, 0);
         findNeighbors();
         calcH();
 
         if (wT == 0)
             teta = RANDOM.nextDouble() * Math.PI * 2;
+//            teta = -Math.PI / 2;
         else
             calcTeta();
     }
