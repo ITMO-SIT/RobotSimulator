@@ -12,10 +12,12 @@ import java.util.HashMap;
 public class SingleSimulation extends SimulationWrapper {
 
     protected Simulation simulation;
+    protected HashMap<String, SimulationParam> param;
 
     public SingleSimulation(HashMap<String, SimulationParam> param) {
         name = "Симуляция";
         super.setParam(param);
+        this.param = param;
         try {
             simulation = createSimulation();
             simulation.setSimulationParam(param);
@@ -25,6 +27,13 @@ public class SingleSimulation extends SimulationWrapper {
         } catch (Exception err) {
             System.out.println("ERROR: не удалось создать симуляцию.");
         }
+    }
+
+    @Override
+    public void restart() {
+        simulation.setSimulationParam(param);
+        simulation.init();
+        simulation.notifyObservers(SimulatorEvent.SIMULATION_STEP_END);
     }
 
     @Override

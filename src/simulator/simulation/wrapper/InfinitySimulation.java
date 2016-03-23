@@ -25,6 +25,11 @@ public class InfinitySimulation extends SimulationWrapper {
     }
 
     @Override
+    public void restart() {
+
+    }
+
+    @Override
     public void pause() {
         isActive = false;
     }

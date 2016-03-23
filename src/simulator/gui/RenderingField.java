@@ -5,6 +5,7 @@ import simulator.helper.Observer;
 import simulator.helper.SimulatorEvent;
 import simulator.robot.Robot;
 import simulator.simulation.Simulation;
+import simulator.simulation.SimulationStatus;
 import simulator.target.Target;
 
 
@@ -47,6 +48,8 @@ public class RenderingField extends JPanel implements Observer {
             simulation.setDelay(0);
         }
         simulation = sim;
+        if (simulation.getStatus() == SimulationStatus.NOT_INITIALIZED)
+            simulation.init();
         simulation.setDelay(25);
         robots  = simulation.getRobots();
         targets = simulation.getTargets();

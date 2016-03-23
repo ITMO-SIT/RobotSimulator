@@ -27,6 +27,7 @@ abstract public class SimulationWrapper implements Observable, Observer {
     }
 
     abstract public void pause();
+    abstract public void restart();
     abstract public Simulation start();
     abstract public Observable addSimulationObserver(Observer observer);
 

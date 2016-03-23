@@ -29,6 +29,11 @@ public class RepeatSimulation extends SimulationWrapper {
     }
 
     @Override
+    public void restart() {
+
+    }
+
+    @Override
     public void pause() {
 //        simulations.forEach(Simulation::pause);
     }
