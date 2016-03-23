@@ -70,8 +70,8 @@ public class AnyLogicRobot extends Robot {
         calcH();
 
         if (wT == 0)
-            teta = RANDOM.nextDouble() * Math.PI * 2;
-//            teta = -Math.PI / 2;
+//            teta = RANDOM.nextDouble() * Math.PI * 2;
+            teta = -Math.PI / 2;
         else
             calcTeta();
     }

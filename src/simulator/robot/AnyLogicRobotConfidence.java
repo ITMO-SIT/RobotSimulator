@@ -21,7 +21,7 @@ abstract public class AnyLogicRobotConfidence extends AnyLogicRobot {
         calcH();
         calcCorrectDist();
         calcG();
-        if (countIter > 15)
+        if (countIter > 1)
             calcW();
 //        calcTeta();
 
