@@ -26,7 +26,7 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
     @InputSimulationParam private double distBetweenRobot = criticalDist;
 
     @InputSimulationParam private Integer positionSeed;
-    @InputSimulationParam private Integer roboInitSeed;
+//    @InputSimulationParam private Integer roboInitSeed;
 
     // для AnyLogicRobotConfidence
     @InputSimulationParam private double deltaW = 0.05;
@@ -102,12 +102,12 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             positionSeed = positionRandom.nextInt();
             positionRandom.setSeed(positionSeed);
         }
-        if (roboInitSeed != null) roboInitRandom = new Random(roboInitSeed);
-        else {
-            roboInitRandom = new Random();
-            roboInitSeed = roboInitRandom.nextInt();
-            roboInitRandom.setSeed(roboInitSeed);
-        }
+//        if (roboInitSeed != null) roboInitRandom = new Random(roboInitSeed);
+//        else {
+//            roboInitRandom = new Random();
+//            roboInitSeed = roboInitRandom.nextInt();
+//            roboInitRandom.setSeed(roboInitSeed);
+//        }
 
         int N = countPhilistine + countGoodBoy + countEnemy;
         List<AnyLogicRobot> robots = new LinkedList<>();
@@ -128,7 +128,7 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
             }
             robot.setCriticalDist(criticalDist);
             robot.setActiveDist(activeDist);
-            robot.setRandom(roboInitRandom);
+//            robot.setRandom(roboInitRandom);
             robot.setX(X);
             robot.setY(Y);
             robot.setSpeed(1);
@@ -165,7 +165,7 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(positionSeed).append(" ");
-        str.append(roboInitSeed).append(" ");
+//        str.append(roboInitSeed).append(" ");
         str.append(activeDist).append(" ");
         str.append(criticalDist).append(" ");
         str.append(countPhilistine).append(" ");
@@ -173,6 +173,8 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
         str.append(countEnemy).append(" ");
         str.append(confidenceGoodBoy).append(" ");
         str.append(distBetweenRobot).append(" ");
+        str.append(mu).append(" ");
+        str.append(deltaW).append(" ");
 
         int leftTarget  = Integer.parseInt(targets.get(0).toString()) +
                           Integer.parseInt(targets.get(2).toString()) +
@@ -191,16 +193,28 @@ public class AnyLogicSimulation extends Simulation<AnyLogicRobot> {
 
         if (param.get("positionSeed") != null) positionSeed = param.get("positionSeed").getValue();
         else positionSeed = null;
-        if (param.get("poboInitSeed") != null) roboInitSeed = param.get("poboInitSeed").getValue();
-        else roboInitSeed = null;
+//        if (param.get("poboInitSeed") != null) roboInitSeed = param.get("poboInitSeed").getValue();
+//        else roboInitSeed = null;
 
         if (param.get("criticalDist") != null)   criticalDist = param.get("criticalDist").getValue();
         if (param.get("activeDist")   != null)   activeDist   = param.get("activeDist").getValue();
+        if (param.get("distBetweenRobot") != null)  distBetweenRobot  = param.get("distBetweenRobot").getValue();
+        if (param.get("confidenceGoodBoy") != null) confidenceGoodBoy = param.get("confidenceGoodBoy").getValue();
+
+        if (param.get("countAgent") != null) {
+            int N = param.get("countAgent").getValue();
+            int percentG = param.get("percentGoodBoy").getValue();
+            int percentE = param.get("percentEnemy").getValue();
+
+            countGoodBoy = (int)((double)N / 100 * percentG);
+            countEnemy   = (int)((double)N / 100 * percentE);
+            countPhilistine = N - countGoodBoy - countEnemy;
+        }
+
         if (param.get("countPhilistine") != null)countPhilistine = param.get("countPhilistine").getValue();
         if (param.get("countGoodBoy") != null)   countGoodBoy = param.get("countGoodBoy").getValue();
         if (param.get("countEnemy")   != null)   countEnemy   = param.get("countEnemy").getValue();
-        if (param.get("distBetweenRobot") != null)  distBetweenRobot  = param.get("distBetweenRobot").getValue();
-        if (param.get("confidenceGoodBoy") != null) confidenceGoodBoy = param.get("confidenceGoodBoy").getValue();
+
 
         if (param.get("mu")     != null) mu     = param.get("mu").getValue();
         if (param.get("deltaW") != null) deltaW = param.get("deltaW").getValue();

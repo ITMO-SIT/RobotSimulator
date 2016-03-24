@@ -7,57 +7,45 @@
         <Class type = "target" value = "simulator.target.CountTarget"/>
         <Class type = "field"  value = "simulator.field.DefaultField"/>
 
-        <ConstParam param = "name" type = "string" value = "Тестовая симуляция"/>
+        <ConstParam param="name" type="string" value="Алг. изменения увер.(A)"/>
+        <ConstParam param = "resultFilePath" type = "string" value = "result.txt" />
 
-        <ConstParam param = "activeDist" type = "double" value = "20"/>
-        <ConstParam param = "confidenceGoodBoy" type = "double" value = "1"/>
+        <ConstParam param="name" type="string" value="Алг. изменения увер.(A)"/>
 
-        <ConstParam param="countGoodBoy"    type = "int" value="50"/>
-        <ConstParam param="countEnemy"      type = "int" value="15"/>
-        <ConstParam param="countPhilistine" type = "int" value="500"/>
+        <RandomParam param="countAgent"     type="int" min_val="100" max_val="1000"/>
+        <RandomParam param="percentGoodBoy" type="int" min_val="5"   max_val="50"/>
+        <RandomParam param="percentEnemy"   type="int" min_val="5"   max_val="30"/>
 
-        <ConstParam param="mu"     type="double" value="0.75"/>
-        <ConstParam param="deltaW" type="double" value="0.05"/>
+        <RandomParam param="activeDist"   type="double" min_val="4" max_val="30"/>
+        <RandomParam param="criticalDist" type="double" min_val="2" max_val="5"/>
+        <RandomParam param="distBetweenRobot"  type="double" min_val="2" max_val="10"/>
+        <RandomParam param="confidenceGoodBoy" type="double" min_val="0" max_val="1"/>
+
+        <RandomParam param="mu"     type="double" min_val="0.5"  max_val="1"/>
+        <RandomParam param="deltaW" type="double" min_val="0.05" max_val="0.25"/>
     </SingleSimulation>
 
-    <SingleSimulation>
-        <Class type = "simulation" value = "simulator.simulation.ready.DefaultSimulation"/>
-        <Class type = "robot"  value = "simulator.robot.DefaultRobot"/>
-        <Class type = "target" value = "simulator.target.DefaultTarget"/>
-        <Class type = "field"  value = "simulator.field.DefaultField"/>
-
-        <ConstParam param = "name" type = "string" value = "Тестовая симуляция 2"/>
-    </SingleSimulation>
-
-    <RepeatSimulation>
+    <InfinitySimulation>
         <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
-        <Class type = "robot"  value = "simulator.robot.AnyLogicRobot"/>
+        <Class type = "robot"  value = "simulator.robot.RobotConfidenceAlgA"/>
         <Class type = "target" value = "simulator.target.CountTarget"/>
         <Class type = "field"  value = "simulator.field.DefaultField"/>
 
-        <ConstParam param = "name" type = "string" value = "Тестовая серия симуляций"/>
-        <ConstParam param = "reps" type = "int"    value = "50" />
+        <ConstParam param="name" type="string" value="Алг. изменения увер.(A)"/>
         <ConstParam param = "resultFilePath" type = "string" value = "result.txt" />
 
-        <ConstParam param = "activeDist" type = "double" value = "17.5"/>
-        <RandomParam param = "criticalDist"      type = "double" min_val = "1" max_val = "7"/>
-        <RandomParam param = "countPhilistine"   type = "int"    min_val = "100" max_val = "300"/>
-        <RandomParam param = "confidenceGoodBoy" type = "double" min_val = "0.1" max_val = "1"/>
-    </RepeatSimulation>
+        <ConstParam param="name" type="string" value="Алг. изменения увер.(A)"/>
 
-    <RepeatSimulation>
-        <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
-        <Class type = "robot"  value = "simulator.robot.AnyLogicRobot"/>
-        <Class type = "target" value = "simulator.target.CountTarget"/>
-        <Class type = "field"  value = "simulator.field.DefaultField"/>
+        <RandomParam param="countAgent"     type="int" min_val="100" max_val="1000"/>
+        <RandomParam param="percentGoodBoy" type="int" min_val="5"   max_val="50"/>
+        <RandomParam param="percentEnemy"   type="int" min_val="5"   max_val="30"/>
 
-        <ConstParam param = "name" type = "string" value = "Тестовая №1"/>
-        <ConstParam param = "reps" type = "int"    value = "50" />
-        <ConstParam param = "resultFilePath" type = "string" value = "result.txt" />
+        <RandomParam param="activeDist"   type="double" min_val="4" max_val="30"/>
+        <RandomParam param="criticalDist" type="double" min_val="2" max_val="5"/>
+        <RandomParam param="distBetweenRobot" type="double"  min_val="2" max_val="10"/>
+        <RandomParam param="confidenceGoodBoy" type="double" min_val="0" max_val="1"/>
 
-        <MutableParam param = "activeDist" type = "double" min_val = "10" max_val = "20" step = "0.5"/>
-        <RandomParam param = "criticalDist"      type = "double" min_val = "1" max_val = "7"/>
-        <RandomParam param = "countPhilistine"   type = "int"    min_val = "100" max_val = "300"/>
-        <RandomParam param = "confidenceGoodBoy" type = "double" min_val = "0.1" max_val = "1"/>
-    </RepeatSimulation>
+        <RandomParam param="mu"     type="double" min_val="0.5"  max_val="1"/>
+        <RandomParam param="deltaW" type="double" min_val="0.05" max_val="0.25"/>
+    </InfinitySimulation>
 </list>

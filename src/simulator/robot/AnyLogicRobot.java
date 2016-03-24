@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class AnyLogicRobot extends Robot {
 
-    private Random RANDOM = new Random(666);
+//    private Random RANDOM = new Random(666);
 
     public enum Type {philistine, goodboy, enemy}
 
@@ -37,7 +37,7 @@ public class AnyLogicRobot extends Robot {
         g.fillOval((int)x - 2, (int)y - 2, 4, 4);
 
 
-        g.drawLine((int)x, (int)y, (int)(x + 15 * Math.cos(teta)), (int)(y + 15 * Math.sin(teta)));
+//        g.drawLine((int)x, (int)y, (int)(x + 15 * Math.cos(teta)), (int)(y + 15 * Math.sin(teta)));
 //        if (wF == 1 || wT != 0)
 //            g.drawOval((int)(x - activeDist), (int)(y - activeDist),
 //                       (int)activeDist * 2, (int) activeDist * 2);
@@ -78,7 +78,7 @@ public class AnyLogicRobot extends Robot {
 
     public void setCriticalDist(double dist) {criticalDist = dist;}
     public void setActiveDist(double dist)   {activeDist = dist;}
-    public void setRandom(Random random)     {RANDOM = random;}
+//    public void setRandom(Random random)     {RANDOM = random;}
 
     @Override
     public void doStep() {
