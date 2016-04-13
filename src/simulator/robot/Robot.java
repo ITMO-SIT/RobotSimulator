@@ -16,7 +16,6 @@ abstract public class Robot {
     protected ArrayList<Target> targets;
 
     abstract public void doStep();
-    abstract public void targetDone();
 
     public void draw(Graphics g) {
         g.setColor(Color.ORANGE);
@@ -28,6 +27,9 @@ abstract public class Robot {
         targets.add(newTarget);
     }
 
+    public void targetDone() {
+        isActive = false;
+    }
 
     // ------- getter and setter region start -------//
     public double getX() {return x;}

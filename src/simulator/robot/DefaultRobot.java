@@ -9,12 +9,6 @@ public class DefaultRobot extends Robot {
     }
 
     @Override
-    public void targetDone() {
-        isActive = false;
-        System.out.println("я дошел!");
-    }
-
-    @Override
     public void doStep() {
         if (!isActive) return;
         targets.stream().filter(target -> target.contains(x, y)).forEach(target -> targetDone());

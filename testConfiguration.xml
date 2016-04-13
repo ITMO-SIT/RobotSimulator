@@ -1,51 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <list>
-
     <SingleSimulation>
-        <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
-        <Class type = "robot"  value = "simulator.robot.RobotConfidenceAlgA"/>
+        <Class type = "simulation" value = "simulator.simulation.ready.BoidsSimulation"/>
+        <Class type = "robot"  value = "simulator.robot.BoidsRobotConfAlgB"/>
         <Class type = "target" value = "simulator.target.CountTarget"/>
         <Class type = "field"  value = "simulator.field.DefaultField"/>
 
-        <ConstParam param="name" type="string" value="Алг. изменения увер.(A)"/>
+        <ConstParam param="name" type="string" value="KOTLIN"/>
         <ConstParam param = "resultFilePath" type = "string" value = "result.txt" />
 
-        <ConstParam param="name" type="string" value="Алг. изменения увер.(A)"/>
+        <ConstParam param="countPhilistine"     type="int" value="100" />
+        <ConstParam param="countEnemy"     type="int" value="10"   />
+        <ConstParam param="countGoodBoy"   type="int" value="40"   />
 
-        <RandomParam param="countAgent"     type="int" min_val="100" max_val="1000"/>
-        <RandomParam param="percentGoodBoy" type="int" min_val="5"   max_val="50"/>
-        <RandomParam param="percentEnemy"   type="int" min_val="5"   max_val="30"/>
-
-        <RandomParam param="activeDist"   type="double" min_val="4" max_val="30"/>
-        <RandomParam param="criticalDist" type="double" min_val="2" max_val="5"/>
-        <RandomParam param="distBetweenRobot"  type="double" min_val="2" max_val="10"/>
+        <RandomParam param="activeDist"  type="double" min_val="20" max_val="30"/>
+        <ConstParam param="criticalDist" type="double" value="10"/>
+        <ConstParam param="distBetweenRobot" type="double" value="15"/>
         <RandomParam param="confidenceGoodBoy" type="double" min_val="0" max_val="1"/>
 
-        <RandomParam param="mu"     type="double" min_val="0.5"  max_val="1"/>
-        <RandomParam param="deltaW" type="double" min_val="0.05" max_val="0.25"/>
+        <RandomParam param="mu"     type="double" min_val="0.5"  max_val="0.75"/>
+        <RandomParam param="deltaW" type="double" min_val="0.0001" max_val="0.01"/>
     </SingleSimulation>
-
-    <InfinitySimulation>
-        <Class type = "simulation" value = "simulator.simulation.ready.AnyLogicSimulation"/>
-        <Class type = "robot"  value = "simulator.robot.RobotConfidenceAlgA"/>
-        <Class type = "target" value = "simulator.target.CountTarget"/>
-        <Class type = "field"  value = "simulator.field.DefaultField"/>
-
-        <ConstParam param="name" type="string" value="Алг. изменения увер.(A)"/>
-        <ConstParam param = "resultFilePath" type = "string" value = "result.txt" />
-
-        <ConstParam param="name" type="string" value="Алг. изменения увер.(A)"/>
-
-        <RandomParam param="countAgent"     type="int" min_val="100" max_val="1000"/>
-        <RandomParam param="percentGoodBoy" type="int" min_val="5"   max_val="50"/>
-        <RandomParam param="percentEnemy"   type="int" min_val="5"   max_val="30"/>
-
-        <RandomParam param="activeDist"   type="double" min_val="4" max_val="30"/>
-        <RandomParam param="criticalDist" type="double" min_val="2" max_val="5"/>
-        <RandomParam param="distBetweenRobot" type="double"  min_val="2" max_val="10"/>
-        <RandomParam param="confidenceGoodBoy" type="double" min_val="0" max_val="1"/>
-
-        <RandomParam param="mu"     type="double" min_val="0.5"  max_val="1"/>
-        <RandomParam param="deltaW" type="double" min_val="0.05" max_val="0.25"/>
-    </InfinitySimulation>
 </list>

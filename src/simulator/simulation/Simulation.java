@@ -88,16 +88,17 @@ abstract public class Simulation<R extends Robot> implements Runnable, Observabl
     public void pause() {status = SimulationStatus.PAUSE;}
     public void end()   {status = SimulationStatus.ENDED;}
 
-    public final ArrayList<R>  getRobots()  {
-        robots.iterator();
-        return robots;
-    }
+    public final ArrayList<R>  getRobots()  {return robots;}
     public final ArrayList<Target> getTargets() {return targets;}
     public final SimulationStatus  getStatus()  {return status;}
     public final Field getField() {return field;}
 
     public void setDelay(int delay) {this.delay = delay;}
 
+
+    public boolean anyTargetContains(double x, double y) {
+        return targets.stream().anyMatch(target -> target.contains(x, y));
+    }
 
     // TODO: обработку исключений
     protected final R createRobot() throws Exception {

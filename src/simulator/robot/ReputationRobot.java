@@ -98,9 +98,4 @@ public class ReputationRobot extends Robot{
     public void doStep() {
 
     }
-
-    @Override
-    public void targetDone() {
-
-    }
 }
