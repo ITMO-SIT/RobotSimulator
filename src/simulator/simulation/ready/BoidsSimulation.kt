@@ -136,22 +136,21 @@ class BoidsSimulation : Simulation<BoidsRobot>() {
         activeDist   = param["activeDist"]?.getValue<Double>() ?: 20.0
         confidence   = param["confidenceGoodBoy"]?.getValue<Double>() ?: 0.5
         distBetweenRobot = param["distBetweenRobot"]?.getValue<Double>() ?: criticalDist
-
+        if (distBetweenRobot < criticalDist) distBetweenRobot = criticalDist
 
         if (param["countAgent"] != null) {
-            val N = param["countAgent"]?.getValue<Int>() ?: 300
+            val N = param["countAgent"]!!.getValue<Int>()
             val percentG = param["percentGoodBoy"]?.getValue<Int>() ?: 10
             val percentE = param["percentEnemy"]?.getValue<Int>() ?: 5
 
             countInform = (N.toDouble() / 100 * percentG).toInt()
             countEnemy  = (N.toDouble() / 100 * percentE).toInt()
             countNormal = N - countInform - countEnemy
+        } else {
+            countNormal = param["countPhilistine"]?.getValue<Int>() ?: 265
+            countInform = param["countGoodBoy"]?.getValue<Int>() ?: 30
+            countEnemy  = param["countEnemy"]?.getValue<Int>() ?: 5
         }
-
-        countNormal = param["countPhilistine"]?.getValue<Int>() ?: 265
-        countInform = param["countGoodBoy"]?.getValue<Int>() ?: 30
-        countEnemy  = param["countEnemy"]?.getValue<Int>() ?: 5
-
 
         mu = param["mu"]?.getValue<Double>() ?: 0.99
         deltaW = param["deltaW"]?.getValue<Double>() ?: 0.05
